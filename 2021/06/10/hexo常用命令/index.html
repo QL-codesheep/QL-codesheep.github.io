@@ -6,14 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>hexo常用命令 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="hexo常用命令">
+<meta property="og:url" content="http://example.com/2021/06/10/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-06-10T11:37:51.000Z">
+<meta property="article:modified_time" content="2021-06-10T11:53:38.844Z">
 <meta property="article:author" content="QL-codesheep">
+<meta property="article:tag" content="技术文档">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -157,16 +160,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-hexo常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-hexo常用命令" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/06/10/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">hexo常用命令</a>
+    <h1 class="article-title" itemprop="name">
+      hexo常用命令
     </h1>
   
 
@@ -180,11 +181,115 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-        
-          <a class="article-more-a" href="/2021/06/10/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/#more">more >></a>
-        
+<span id="more"></span>
+<h1 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h1><blockquote>
+<ul>
+<li>npm install hexo -g #安装  </li>
+<li>npm update hexo -g #升级  </li>
+<li>hexo init #初始化</li>
+</ul>
+</blockquote>
+<h1 id="简写"><a href="#简写" class="headerlink" title="简写"></a>简写</h1><blockquote>
+<ul>
+<li>hexo n “我的博客” == hexo new “我的博客” #新建文章</li>
+<li>hexo p == hexo publish</li>
+<li>hexo g == hexo generate#生成</li>
+<li>hexo s == hexo server #启动服务预览</li>
+<li>hexo d == hexo deploy#部署</li>
+</ul>
+</blockquote>
+<h1 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h1><blockquote>
+<ul>
+<li>hexo server #Hexo 会监视文件变动并自动更新，您无须重启服务器。</li>
+<li>hexo server -s #静态模式</li>
+<li>hexo server -p 5000 #更改端口</li>
+<li>hexo server -i 192.168.1.1 #自定义 IP</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>hexo clean #清除缓存 网页正常情况下可以忽略此条命令</li>
+<li>hexo g #生成静态网页</li>
+<li>hexo d #开始部署</li>
+</ul>
+</blockquote>
+<h1 id="监视文件变动"><a href="#监视文件变动" class="headerlink" title="监视文件变动"></a>监视文件变动</h1><blockquote>
+<ul>
+<li>hexo generate #使用 Hexo 生成静态文件快速而且简单</li>
+<li>hexo generate –watch #监视文件变动</li>
+</ul>
+</blockquote>
+<h1 id="完成后部署"><a href="#完成后部署" class="headerlink" title="完成后部署"></a>完成后部署</h1><blockquote>
+<ul>
+<li>hexo generate –deploy</li>
+<li>hexo deploy –generate</li>
+</ul>
+</blockquote>
+<h1 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h1><h1 id="1-找不到git部署"><a href="#1-找不到git部署" class="headerlink" title="1.找不到git部署"></a>1.找不到git部署</h1><blockquote>
+<p>ERROR Deployer not found: git</p>
+</blockquote>
+<h1 id="2-解决方法"><a href="#2-解决方法" class="headerlink" title="2.解决方法"></a>2.解决方法</h1><blockquote>
+<p>npm install hexo-deployer-git –save</p>
+</blockquote>
+<h1 id="3-部署类型设置git"><a href="#3-部署类型设置git" class="headerlink" title="3.部署类型设置git"></a>3.部署类型设置git</h1><p>hexo 3.0 部署类型不再是github，_config.yml 中修改</p>
+<blockquote>
+<ul>
+<li>Deployment</li>
+</ul>
+</blockquote>
+<ul>
+<li>Docs: <a target="_blank" rel="noopener" href="http://hexo.io/docs/deployment.html">http://hexo.io/docs/deployment.html</a></li>
+<li>deploy:</li>
+<li>type: git</li>
+<li>repository: git@<em><strong>.github.com:</strong></em>/***.github.io.git</li>
+<li>branch: master</li>
+</ul>
+<h1 id="4-xcodebuild"><a href="#4-xcodebuild" class="headerlink" title="4. xcodebuild"></a>4. xcodebuild</h1><blockquote>
+<p>xcode-select: error: tool ‘xcodebuild’ requires Xcode, but active developer directory ‘/Library/Developer/CommandLineTools’ is a command line tools instance</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>npm install bcrypt</li>
+</ul>
+</blockquote>
+<h1 id="5-RSS不显示"><a href="#5-RSS不显示" class="headerlink" title="5. RSS不显示"></a>5. RSS不显示</h1><p>安装RSS插件</p>
+<blockquote>
+<p>npm install hexo-generator-feed –save</p>
+</blockquote>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wechatpay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -204,16 +309,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/06/10/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/06/10/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2021/06/10/git%E6%96%87%E4%BB%B6%E6%8F%90%E4%BA%A4%E5%90%8E%E5%87%BA%E7%8E%B0%E7%BA%A2%E8%89%B2%E6%84%9F%E5%8F%B9%E5%8F%B7/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">git文件提交后出现红色感叹号</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -228,241 +392,32 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-git文件提交后出现红色感叹号" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/06/10/git%E6%96%87%E4%BB%B6%E6%8F%90%E4%BA%A4%E5%90%8E%E5%87%BA%E7%8E%B0%E7%BA%A2%E8%89%B2%E6%84%9F%E5%8F%B9%E5%8F%B7/">git文件提交后出现红色感叹号</a>
-    </h1>
-  
-
-        
-        <a href="/2021/06/10/git%E6%96%87%E4%BB%B6%E6%8F%90%E4%BA%A4%E5%90%8E%E5%87%BA%E7%8E%B0%E7%BA%A2%E8%89%B2%E6%84%9F%E5%8F%B9%E5%8F%B7/" class="archive-article-date">
-  	<time datetime="2021-06-10T09:44:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1>
-        
-          <a class="article-more-a" href="/2021/06/10/git%E6%96%87%E4%BB%B6%E6%8F%90%E4%BA%A4%E5%90%8E%E5%87%BA%E7%8E%B0%E7%BA%A2%E8%89%B2%E6%84%9F%E5%8F%B9%E5%8F%B7/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/06/10/git%E6%96%87%E4%BB%B6%E6%8F%90%E4%BA%A4%E5%90%8E%E5%87%BA%E7%8E%B0%E7%BA%A2%E8%89%B2%E6%84%9F%E5%8F%B9%E5%8F%B7/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#hexo"><span class="toc-number">1.</span> <span class="toc-text">hexo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E5%86%99"><span class="toc-number">2.</span> <span class="toc-text">简写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">服务器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%91%E8%A7%86%E6%96%87%E4%BB%B6%E5%8F%98%E5%8A%A8"><span class="toc-number">4.</span> <span class="toc-text">监视文件变动</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E5%90%8E%E9%83%A8%E7%BD%B2"><span class="toc-number">5.</span> <span class="toc-text">完成后部署</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8A%A5%E9%94%99"><span class="toc-number">6.</span> <span class="toc-text">报错</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%89%BE%E4%B8%8D%E5%88%B0git%E9%83%A8%E7%BD%B2"><span class="toc-number">7.</span> <span class="toc-text">1.找不到git部署</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-number">8.</span> <span class="toc-text">2.解决方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E9%83%A8%E7%BD%B2%E7%B1%BB%E5%9E%8B%E8%AE%BE%E7%BD%AEgit"><span class="toc-number">9.</span> <span class="toc-text">3.部署类型设置git</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-xcodebuild"><span class="toc-number">10.</span> <span class="toc-text">4. xcodebuild</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-RSS%E4%B8%8D%E6%98%BE%E7%A4%BA"><span class="toc-number">11.</span> <span class="toc-text">5. RSS不显示</span></a></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
   
-    <article id="post-茜茜的第一篇博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/06/10/%E8%8C%9C%E8%8C%9C%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">茜茜的第一篇博客</a>
-    </h1>
   
 
-        
-        <a href="/2021/06/10/%E8%8C%9C%E8%8C%9C%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2021-06-10T09:08:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="hello"><a href="#hello" class="headerlink" title="hello"></a>hello</h1>
-        
-          <a class="article-more-a" href="/2021/06/10/%E8%8C%9C%E8%8C%9C%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">我的markdown笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/06/10/%E8%8C%9C%E8%8C%9C%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/06/10/hello-world/">Hello World</a>
-    </h1>
   
 
-        
-        <a href="/2021/06/10/hello-world/" class="archive-article-date">
-  	<time datetime="2021-06-10T08:51:26.937Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-        
-          <a class="article-more-a" href="/2021/06/10/hello-world/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/06/10/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
+
   
 
 
@@ -485,8 +440,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
