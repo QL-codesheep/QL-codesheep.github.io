@@ -159,30 +159,95 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-双指针" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Dubbo" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/06/16/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+      <a class="article-title" href="/2021/07/20/Dubbo/">Dubbo</a>
     </h1>
   
 
         
-        <a href="/2021/06/16/%E5%8F%8C%E6%8C%87%E9%92%88/" class="archive-article-date">
-  	<time datetime="2021-06-16T14:29:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-16</time>
+        <a href="/2021/07/20/Dubbo/" class="archive-article-date">
+  	<time datetime="2021-07-20T08:28:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h1>
-        
-          <a class="article-more-a" href="/2021/06/16/%E5%8F%8C%E6%8C%87%E9%92%88/#more">more >></a>
-        
+        <h2 id="分布式简要说明"><a href="#分布式简要说明" class="headerlink" title="分布式简要说明"></a>分布式简要说明</h2><p>Dubbo是用于分布式系统的框架所以我们要先了解什么是分布式<br><strong>分布式系统是若干独立 计算机的集合，这些计算机对于用户来说就像单个相关系统。</strong></p>
+<p>老式系统(单一应用架构)就是把一个系统，统一放到一个服务器当中然后每一个服务器上放一个系统，如果说要更新代码的话，每一个服务器上的系统都要重新去部署十分的麻烦。</p>
+<p><strong>而分布式系统就是将一个完整的系统拆分成多个不同的服务，然后在将每一个服务单独的放到一个服务器当中。(三个臭皮匠赛过诸葛亮)</strong></p>
+<h2 id="应用架构及发展演变"><a href="#应用架构及发展演变" class="headerlink" title="应用架构及发展演变"></a>应用架构及发展演变</h2><p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210720163131.png" alt="image-20210720163130962"></p>
+<h3 id="Dubbo和SpringCloud对比"><a href="#Dubbo和SpringCloud对比" class="headerlink" title="Dubbo和SpringCloud对比"></a>Dubbo和SpringCloud对比</h3><p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210720163202.png" alt="image-20210720163202417"></p>
+<h3 id="发展演变"><a href="#发展演变" class="headerlink" title="发展演变"></a>发展演变</h3><h4 id="ORM"><a href="#ORM" class="headerlink" title="ORM"></a><strong>ORM</strong></h4><p><strong>单一应用架构：一个项目装到一个服务器当中，也可以运行多个服务器每一个服务器当中都装一个项目。</strong><br>缺点：1.如果要添加某一个功能的话就要把一个项目重新打包，在分别部署到每一个服务器当中去。2.如果后期项目越来越大的话单台服务器跑一个项目压力会很大的。会不利于维护，开发和程序的性能。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210720163617.png" alt="image-20210720163617809"></p>
+<h4 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a><strong>MVC</strong></h4><p><strong>垂直应用架构：将应用切割成几个互不相干的小应用，在将每个小应用独立放到一个服务器上，如果哪一个应用的访问数量多就多加几台服务器。</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210720163627.png" alt="image-20210720163627696"></p>
+<h4 id="分布式服务架构"><a href="#分布式服务架构" class="headerlink" title="分布式服务架构"></a><strong>分布式服务架构</strong></h4><p><strong>RPC简介</strong><br>分布式应用架构(远程过程调用)：<strong>当垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务</strong>，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210720163710.png" alt="image-20210720163710679"></p>
+<h5 id="什么叫RPC"><a href="#什么叫RPC" class="headerlink" title="什么叫RPC"></a><strong>什么叫RPC</strong></h5><p><strong>RPC [ Remote Procedure Call]是指远程过程调用，是一种进程问通信方式</strong>，他是一种技术的思想，而不是规范。它允许程序调用另一个地址空间(通常是共享网络的另一台机器上)的过程或函数，而不用程序员显式编码这个远程调用的细节。即程序员无论是调用本地的还是远程的函数，本质上编写的调用代码基本相同。<br><strong>RPC（Remote Procedure Call）—远程过程调用，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。也就是说两台服务器A，B，一个应用部署在A服务器上，想要调用B服务器上应用提供的方法，由于不在一个内存空间，不能直接调用，需要通过网络来表达调用的语义和传达调用的数据。</strong></p>
+<h5 id="RPC工作原理"><a href="#RPC工作原理" class="headerlink" title="RPC工作原理"></a>RPC工作原理</h5><p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210720163829.png" alt="image-20210720163829091"></p>
+<p>Client像调用本地服务似的调用远程服务；<br>Client stub接收到调用后，将方法、参数序列化<br>客户端通过sockets将消息发送到服务端<br>Server stub 收到消息后进行解码（将消息对象反序列化）<br>Server stub 根据解码结果调用本地的服务<br>本地服务执行(对于服务端来说是本地执行)并将结果返回给Server stub<br>Server stub将返回结果打包成消息（将结果消息对象序列化）<br>服务端通过sockets将消息发送到客户端<br>Client stub接收到结果消息，并进行解码（将结果消息发序列化）<br>客户端得到最终结果。</p>
+<h5 id="RPC-调用分以下两种："><a href="#RPC-调用分以下两种：" class="headerlink" title="RPC 调用分以下两种："></a>RPC 调用分以下两种：</h5><p><strong>同步调用</strong>：客户方等待调用执行完成并返回结果。<br><strong>异步调用</strong>：客户方调用后不用等待执行结果返回，但依然可以通过回调通知等方式获取返回结果。若客户方不关心调用返回结果，则变成单向异步调用，单向调用不用返回结果。</p>
+<h5 id="RPC步骤解析"><a href="#RPC步骤解析" class="headerlink" title="RPC步骤解析"></a>RPC步骤解析</h5><p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210720163909.png" alt="image-20210720163909859"></p>
+<p>RPC相关资料可访问博客：<br><a target="_blank" rel="noopener" href="http://blog.csdn.net/smartbetter/article/details/100360835">http://blog.csdn.net/smartbetter/article/details/100360835</a></p>
+<p>SOA<br>流动计算架构：在分布式应用架构的基础上增加了一个调度、治理中心基于访问压力实时管理集群容量、提高集群的利用率，用于提高机器利用率的 资源调度和治理中心(SOA) 是关键 (不浪费计算机资源)</p>
+<h2 id="Dubbo核心概念"><a href="#Dubbo核心概念" class="headerlink" title="Dubbo核心概念"></a>Dubbo核心概念</h2><p>Dubbo官网: <a target="_blank" rel="noopener" href="http://dubbo.apache.org/en-us/index.html">http://dubbo.apache.org/en-us/index.html</a></p>
+<p>Dubbo 是一款高性能、轻量级的开源Java RPC框架，它提供了三大核心能力：面向接口的远程方法调用，智能容错和负载均衡，服务自动注册和发现。分布式系统是将一个系统拆分为多个不同的服务</p>
+<h3 id="Dubbo特性一览"><a href="#Dubbo特性一览" class="headerlink" title="Dubbo特性一览"></a>Dubbo特性一览</h3><p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210720164053.png" alt="image-20210720164053595"></p>
+<h3 id="dubbo设计架构"><a href="#dubbo设计架构" class="headerlink" title="dubbo设计架构"></a>dubbo设计架构</h3><p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210720164127.png" alt="image-20210720164127330"></p>
+<p>该图来自Dubbo官网，描述了服务注册中心、服务提供方、服务消费方、服务监控中心之间的调用关系。</p>
+<p><strong>服务提供者（Provider）：</strong>暴露服务的服务提供方，服务提供者在启动时，向注册中心注册自己提供的服务。<br><strong>服务消费者（Consumer）:</strong> 调用远程服务的服务消费方，服务消费者在启动时，向注册中心订阅自己所需的服务，服务消费者，从提供者地址列表中，基于软负载均衡算法，选一台提供者进行调用，如果调用失败，再选另一台调用。<br><strong>注册中心（Registry）：</strong>注册中心返回服务提供者地址列表给消费者，如果有变更，注册中心将基于长连接推送变更数据给消费者。<br><strong>监控中心（Monitor）：</strong>服务消费者和提供者，在内存中累计调用次数和调用时间，定时每分钟发送一次统计数据到监控中心。</p>
+<h3 id="Dubbo的特性"><a href="#Dubbo的特性" class="headerlink" title="Dubbo的特性"></a>Dubbo的特性</h3><h3 id="（1）服务注册中心"><a href="#（1）服务注册中心" class="headerlink" title="（1）服务注册中心"></a><strong>（1）服务注册中心</strong></h3><p>相比Hessian类RPC框架，Dubbo有自己的服务中心， 写好的服务可以注册到服务中心， 客户端从服务中心寻找服务，然后再到相应的服务提供者机器获取服务。通过服务中心可以实现集群、负载均衡、高可用(容错) 等重要功能。<br>服务中心一般使用zookeeper实现，也有redis和其他一些方式。以使用zookeeper作为服务中心为例，服务提供者启动后会在zookeeper的/dubbo节点下创建提供的服务节点，包含服务提供者ip、port等信息。服务提供者关闭时会从zookeeper中移除对应的服务。<br>服务使用者会从注册中心zookeeper中寻找服务，同一个服务可能会有多个提供者，Dubbo会帮我们找到合适的服务提供者，也就是针对服务提供者的负载均衡。</p>
+<h3 id="（2）负载均衡"><a href="#（2）负载均衡" class="headerlink" title="（2）负载均衡"></a><strong>（2）负载均衡</strong></h3><p>当同一个服务有多个提供者在提供服务时，客户端如何正确的选择提供者实 现负载均衡呢？dubbo也给我们提供了几种方案：<br>random 随机选提供者，并可以给提供者设置权重<br>roundrobin 轮询选择提供者<br>leastactive 最少活跃调用数，相同活跃数的随机，活跃数：指调用前后计数差。使慢的提供者收到更少请求，因为越慢的提供者的调用前后计数差会越大。<br>consistenthash 一致性hash，相同参数的请求发到同一台机器上。</p>
+<h3 id="（3）简化测试，允许直连提供者"><a href="#（3）简化测试，允许直连提供者" class="headerlink" title="（3）简化测试，允许直连提供者"></a>（3）简化测试，允许直连提供者</h3><p>在开发阶段为了方便测试，通常系统客户端能指定调用某个服务提供者，那么可以在引用服务时加一个url参数去指定服务提供者。 配置如下：</p>
+<p> &lt;dubbo:reference id=”xxxService”interface=”com.alibaba.xxx.XxxService”url=”dubbo://localhost:20890”/&gt;<br>1</p>
+<h3 id="（4）服务版本，服务分组"><a href="#（4）服务版本，服务分组" class="headerlink" title="（4）服务版本，服务分组"></a>（4）服务版本，服务分组</h3><p>在Dubbo配置文件中可以通过制定版本实现连接制定提供者，也就是通过服务版本可以控制服务的不兼容升级；当同一个服务有多种实现时，可以使用服务分组进行区分。</p>
+<h2 id="dubbo环境搭建-ZooKeeper注册中心"><a href="#dubbo环境搭建-ZooKeeper注册中心" class="headerlink" title="dubbo环境搭建 ZooKeeper注册中心"></a>dubbo环境搭建 ZooKeeper注册中心</h2><h3 id="服务提供者配置及测试"><a href="#服务提供者配置及测试" class="headerlink" title="服务提供者配置及测试"></a>服务提供者配置及测试</h3><h4 id="在-user-service-provider-服务提供者项目中引入依赖"><a href="#在-user-service-provider-服务提供者项目中引入依赖" class="headerlink" title="在 user-service-provider 服务提供者项目中引入依赖"></a>在 <code>user-service-provider</code> 服务提供者项目中引入依赖</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--dubbo--&gt;</span><br><span class="line">  &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;dubbo&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;2.6.2&lt;/version&gt;</span><br><span class="line">  &lt;/dependency&gt;</span><br><span class="line">  &lt;!--注册中心是 zookeeper，引入zookeeper客户端--&gt;</span><br><span class="line">  &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.curator&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;curator-framework&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;2.12.0&lt;/version&gt;</span><br><span class="line">  &lt;/dependency&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="在resource文件中创建provider-xml"><a href="#在resource文件中创建provider-xml" class="headerlink" title="在resource文件中创建provider.xml"></a>在<code>resource</code>文件中创建<code>provider.xml</code></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">       xmlns:dubbo=&quot;http://code.alibabatech.com/schema/dubbo&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">		http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd</span><br><span class="line">		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd&quot;&gt;</span><br><span class="line">    &lt;!--1、指定当前服务/应用的名字(同样的服务名字相同，不要和别的服务同名)--&gt;</span><br><span class="line">   &lt;dubbo:application name=&quot;user-service-provider&quot;&gt;&lt;/dubbo:application&gt;</span><br><span class="line">    &lt;!--2、指定注册中心的位置--&gt;</span><br><span class="line">    &lt;!--&lt;dubbo:registry address=&quot;zookeeper://127.0.0.1:2181&quot;&gt;&lt;/dubbo:registry&gt;--&gt;</span><br><span class="line">    &lt;dubbo:registry protocol=&quot;zookeeper&quot; address=&quot;127.0.0.1:2181&quot;&gt;&lt;/dubbo:registry&gt;</span><br><span class="line">    &lt;!--3、指定通信规则（通信协议? 服务端口）--&gt;</span><br><span class="line">    &lt;dubbo:protocol name=&quot;dubbo&quot; port=&quot;20880&quot;&gt;&lt;/dubbo:protocol&gt;</span><br><span class="line">    &lt;!--4、暴露服务 让别人调用 ref指向服务的真正实现对象--&gt;</span><br><span class="line">    &lt;dubbo:service interface=&quot;com.lemon.gmail.service.UserService&quot; ref=&quot;userServiceImpl&quot;&gt;&lt;/dubbo:service&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--服务的实现--&gt;</span><br><span class="line">    &lt;bean id=&quot;userServiceImpl&quot; class=&quot;com.lemon.gmail.service.impl.UserServiceImpl&quot;&gt;&lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="编写一个ProviderApplication启动类程序，运行测试配置"><a href="#编写一个ProviderApplication启动类程序，运行测试配置" class="headerlink" title="编写一个ProviderApplication启动类程序，运行测试配置"></a>编写一个<code>ProviderApplication</code>启动类程序，运行测试配置</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class MailApplication &#123;</span><br><span class="line">    public static void main(String[] args) throws IOException &#123;</span><br><span class="line">        ClassPathXmlApplicationContext applicationContext= new ClassPathXmlApplicationContext(&quot;provider.xml&quot;);</span><br><span class="line">        applicationContext.start();</span><br><span class="line">        System.in.read();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>zkServer.cmd、和zkCli.cmd服务</strong><br><strong>在dubbo-admin target中cmd运行 java -jar dubbo-admin-0.0.1-SNAPSHOT.jar</strong><br><strong>再次启动项目，我们可以看到在zookeeper中已经发现服务提供者。</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210720171013.png" alt="image-20210720171012972"></p>
+<h3 id="服务消费者配置及测试"><a href="#服务消费者配置及测试" class="headerlink" title="服务消费者配置及测试"></a>服务消费者配置及测试</h3><h4 id="在-order-service-consumer-服务消费者项目中引入依赖"><a href="#在-order-service-consumer-服务消费者项目中引入依赖" class="headerlink" title="在 order-service-consumer 服务消费者项目中引入依赖"></a>在 <code>order-service-consumer</code> 服务消费者项目中引入依赖</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--dubbo--&gt;</span><br><span class="line">      &lt;dependency&gt;</span><br><span class="line">          &lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">          &lt;artifactId&gt;dubbo&lt;/artifactId&gt;</span><br><span class="line">          &lt;version&gt;2.6.2&lt;/version&gt;</span><br><span class="line">      &lt;/dependency&gt;</span><br><span class="line">      &lt;!--注册中心是 zookeeper，引入zookeeper客户端--&gt;</span><br><span class="line">      &lt;dependency&gt;</span><br><span class="line">          &lt;groupId&gt;org.apache.curator&lt;/groupId&gt;</span><br><span class="line">          &lt;artifactId&gt;curator-framework&lt;/artifactId&gt;</span><br><span class="line">          &lt;version&gt;2.12.0&lt;/version&gt;</span><br><span class="line">      &lt;/dependency&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="创建consumer-xml"><a href="#创建consumer-xml" class="headerlink" title="创建consumer.xml"></a>创建<code>consumer.xml</code></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">       xmlns:dubbo=&quot;http://dubbo.apache.org/schema/dubbo&quot;</span><br><span class="line">       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd</span><br><span class="line">		http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd</span><br><span class="line">		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd&quot;&gt;</span><br><span class="line">   &lt;!--包扫描--&gt;</span><br><span class="line">    &lt;context:component-scan base-package=&quot;com.lemon.gmail.service.impl&quot;/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--指定当前服务/应用的名字(同样的服务名字相同，不要和别的服务同名)--&gt;</span><br><span class="line">    &lt;dubbo:application name=&quot;order-service-consumer&quot;&gt;&lt;/dubbo:application&gt;</span><br><span class="line">    &lt;!--指定注册中心的位置--&gt;</span><br><span class="line">    &lt;dubbo:registry address=&quot;zookeeper://127.0.0.1:2181&quot;&gt;&lt;/dubbo:registry&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--调用远程暴露的服务，生成远程服务代理--&gt;</span><br><span class="line">    &lt;dubbo:reference interface=&quot;com.lemon.gmail.service.UserService&quot; id=&quot;userService&quot;&gt;&lt;/dubbo:reference&gt;</span><br><span class="line">&lt;/beans&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="把当前OrderServiceImpl实现类中加上注解"><a href="#把当前OrderServiceImpl实现类中加上注解" class="headerlink" title="把当前OrderServiceImpl实现类中加上注解"></a>把当前OrderServiceImpl实现类中加上注解</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">@Service</span><br><span class="line">public class OrderServiceImpl implements OrderService &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    public UserService userService;</span><br><span class="line">    public void initOrder(String userID) &#123;</span><br><span class="line">        //查询用户的收货地址</span><br><span class="line">        List&lt;UserAddress&gt; userAddressList = userService.getUserAddressList(userID);</span><br><span class="line">        </span><br><span class="line">        //为了直观的看到得到的数据，以下内容也可不写</span><br><span class="line">        System.out.println(&quot;当前接收到的userId=&gt; &quot;+userID);</span><br><span class="line">        System.out.println(&quot;**********&quot;);</span><br><span class="line">        System.out.println(&quot;查询到的所有地址为：&quot;);</span><br><span class="line">        for (UserAddress userAddress : userAddressList) &#123;</span><br><span class="line">            //打印远程服务地址的信息</span><br><span class="line">            System.out.println(userAddress.getUserAddress());</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="编写一个ConsumerApplication启动类程序，运行测试配置"><a href="#编写一个ConsumerApplication启动类程序，运行测试配置" class="headerlink" title="编写一个ConsumerApplication启动类程序，运行测试配置"></a>编写一个<code>ConsumerApplication</code>启动类程序，运行测试配置</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class ConsumerApplication &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(&quot;consumer.xml&quot;);</span><br><span class="line">        OrderService orderService = applicationContext.getBean(OrderService.class);</span><br><span class="line"></span><br><span class="line">        //调用方法查询出数据</span><br><span class="line">        orderService.initOrder(&quot;1&quot;);</span><br><span class="line">        System.out.println(&quot;调用完成...&quot;);</span><br><span class="line">	    System.in.read();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：消费者的运行测试需要先启动提供者。</strong><br><strong>启动服务提供者、消费者。及zookeeper的和dubbo-admin，查看监控信息。</strong><br><strong>localhost:7001</strong></p>
+<ul>
+<li>配置完毕，此时启动zookeeper注册中心及监控。</li>
+<li>启动springboot配置的服务提供者和消费者</li>
+<li>在浏览器输入 localhost:7001 查看结果</li>
+<li><a target="_blank" rel="noopener" href="http://localhost:8081/initOrder?uid=1">http://localhost:8081/initOrder?uid=1</a> 查询到地址信息</li>
+<li>duboo的springboot整合配置完成。</li>
+</ul>
+<h3 id="Dubbo配置"><a href="#Dubbo配置" class="headerlink" title="Dubbo配置"></a>Dubbo配置</h3><p>dubbo配置官网参考：<a target="_blank" rel="noopener" href="http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-service.html">http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-service.html</a><br>1、配置原则</p>
+<p>JVM 启动 -D 参数优先，这样可以使用户在部署和启动时进行参数重写，比如在启动时需改变协议的端口。<br>XML 次之，如果在 XML 中有配置，则 dubbo.properties 中的相应配置项无效。<br>Properties 最后，相当于缺省值，只有 XML 没有配置时，dubbo.properties 的相应配置项才会生效，通常用于共享公共配置，比如应用名。<br>2、启动时检查<br>Dubbo 缺省会在启动时检查依赖的服务是否可用，不可用时会抛出异常，阻止 Spring 初始化完成，以便上线时，能及早发现问题，默认 check=“true”。</p>
+<p>可以通过 check=“false” 关闭检查，比如，测试时，有些服务不关心，或者出现了循环依赖，必须有一方先启动。</p>
+<p>另外，如果你的 Spring 容器是懒加载的，或者通过 API 编程延迟引用服务，请关闭 check，否则服务临时不可用时，会抛出异常，拿到 null 引用，如果 check=“false”，总是会返回引用，当服务恢复时，能自动连上。</p>
+<h2 id="dubbo原理"><a href="#dubbo原理" class="headerlink" title="dubbo原理"></a>dubbo原理</h2><p>RPC原理</p>
+<p>一次完整的RPC调用流程（同步调用，异步另说）如下：</p>
+<p>服务消费方（client）调用以本地调用方式调用服务；<br>client stub接收到调用后负责将方法、参数等组装成能够进行网络传输的消息体；<br>client stub找到服务地址，并将消息发送到服务端；<br>server stub收到消息后进行解码；<br>server stub根据解码结果调用本地的服务；<br>本地服务执行并将结果返回给server stub；<br>server stub将返回结果打包成消息并发送至消费方；<br>client stub接收到消息，并进行解码；<br>服务消费方得到最终结果。<br>dubbo只用了两步1和8，中间的过程是透明的看不到的。RPC框架的目标就是要2~8这些步骤都封装起来，这些细节对用户来说是透明的，不可见的。</p>
+<p>netty通信原理<br>Netty是一个异步事件驱动的网络应用程序框架， 用于快速开发可维护的高性能协议服务器和客户端。它极大地简化并简化了TCP和UDP套接字服务器等网络编程。<br>BIO：(Blocking IO)<br>NIO (Non-Blocking IO)<br>Selector 一般称 为选择器 ，也可以翻译为 多路复用器，<br>Connect（连接就绪）、Accept（接受就绪）、Read（读就绪）、Write（写就绪）</p>
+<p>Netty基本原理：<br>netty基本原理，可参考<a target="_blank" rel="noopener" href="https://www.sohu.com/a/272879207_463994">https://www.sohu.com/a/272879207_463994</a></p>
+<p>dubbo原理<br>1.dubbo原理 -框架设计</p>
+<p>config 配置层：对外配置接口，以 ServiceConfig, ReferenceConfig 为中心，可以直接初始化配置类，也可以通过 spring 解析配置生成配置类<br>proxy 服务代理层：服务接口透明代理，生成服务的客户端 Stub 和服务器端 Skeleton, 以 ServiceProxy 为中心，扩展接口为 ProxyFactory<br>registry 注册中心层：封装服务地址的注册与发现，以服务 URL 为中心，扩展接口为 RegistryFactory, Registry, RegistryService<br>cluster 路由层：封装多个提供者的路由及负载均衡，并桥接注册中心，以 Invoker 为中心，扩展接口为 Cluster, Directory, Router, LoadBalance<br>monitor 监控层：RPC 调用次数和调用时间监控，以 Statistics 为中心，扩展接口为 MonitorFactory, Monitor, MonitorService<br>protocol 远程调用层：封装 RPC 调用，以 Invocation, Result 为中心，扩展接口为 Protocol, Invoker, Exporter<br>exchange 信息交换层：封装请求响应模式，同步转异步，以 Request, Response 为中心，扩展接口为 Exchanger, ExchangeChannel, ExchangeClient, ExchangeServer<br>transport 网络传输层：抽象 mina 和 netty 为统一接口，以 Message 为中心，扩展接口为 Channel, Transporter, Client, Server, Codec<br>serialize 数据序列化层：可复用的一些工具，扩展接口为 Serialization, ObjectInput, ObjectOutput, ThreadPool<br>2.dubbo原理 -启动解析、加载配置信息</p>
+<p>3.dubbo原理 -服务暴露</p>
+<p>4.dubbo原理 -服务引用</p>
+<p>5.dubbo原理 -服务调用</p>
+<p>————————————————<br>版权声明：本文为CSDN博主「情話微甜」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41157588/article/details/106737191">https://blog.csdn.net/qq_41157588/article/details/106737191</a></p>
+
       
 
       
@@ -195,7 +260,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">刷题笔记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">基础知识</a>
         		</li>
       		
 		</ul>
@@ -205,7 +270,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/06/16/%E5%8F%8C%E6%8C%87%E9%92%88/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/07/20/Dubbo/">展开全文 >></a>
         </p>
       
 
@@ -235,30 +300,28 @@
 
 
   
-    <article id="post-二分查找" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-面试Tips" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/06/15/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">二分查找</a>
+      <a class="article-title" href="/2021/07/19/%E9%9D%A2%E8%AF%95Tips/">面试Tips</a>
     </h1>
   
 
         
-        <a href="/2021/06/15/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="archive-article-date">
-  	<time datetime="2021-06-15T13:10:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-15</time>
+        <a href="/2021/07/19/%E9%9D%A2%E8%AF%95Tips/" class="archive-article-date">
+  	<time datetime="2021-07-19T13:11:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="二分查找O-logn"><a href="#二分查找O-logn" class="headerlink" title="二分查找O(logn)"></a>二分查找O(logn)</h1>
-        
-          <a class="article-more-a" href="/2021/06/15/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/#more">more >></a>
-        
+        <h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><p>反向代理，负载均衡，动静分离</p>
+
       
 
       
@@ -271,7 +334,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">刷题笔记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">基础知识</a>
         		</li>
       		
 		</ul>
@@ -281,7 +344,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/06/15/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/07/19/%E9%9D%A2%E8%AF%95Tips/">展开全文 >></a>
         </p>
       
 
@@ -311,29 +374,3418 @@
 
 
   
-    <article id="post-Ruoyi-vue" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-linux" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/06/13/Ruoyi-vue/">Ruoyi-vue</a>
+      <a class="article-title" href="/2021/07/19/linux/">linux</a>
     </h1>
   
 
         
-        <a href="/2021/06/13/Ruoyi-vue/" class="archive-article-date">
-  	<time datetime="2021-06-13T09:12:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-13</time>
+        <a href="/2021/07/19/linux/" class="archive-article-date">
+  	<time datetime="2021-07-19T02:25:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Ruoyi-vue"><a href="#Ruoyi-vue" class="headerlink" title="Ruoyi-vue"></a>Ruoyi-vue</h1><h1 id="基于SpringBoot的权限管理系统（知识笔记）"><a href="#基于SpringBoot的权限管理系统（知识笔记）" class="headerlink" title="基于SpringBoot的权限管理系统（知识笔记）"></a>基于SpringBoot的权限管理系统（知识笔记）</h1>
+        <h1 id="走近Linux系统"><a href="#走近Linux系统" class="headerlink" title="走近Linux系统"></a>走近Linux系统</h1><blockquote>
+<p>开机登录</p>
+</blockquote>
+<p>开机会启动许多程序。它们在Windows叫做”服务”（service），<strong>在Linux就叫做”守护进程”（daemon）</strong>。</p>
+<p>开机成功后，它会显示一个文本登录界面，这个界面就是我们经常看到的登录界面，在这个登录界面中会提示用户输入用户名，而用户输入的用户将作为参数传给login程序来验证用户的身份，密码是不显示的，输完回车即可！</p>
+<p><strong>一般来说，用户的登录方式有三种：</strong></p>
+<ul>
+<li><strong>命令行登录</strong></li>
+<li><strong>ssh登录</strong></li>
+<li><strong>图形界面登录</strong></li>
+</ul>
+<p>最高权限账户为 root，可以操作一切！</p>
+<blockquote>
+<p>关机</p>
+</blockquote>
+<p>在linux领域内大多用在服务器上，很少遇到关机的操作。毕竟服务器上跑一个服务是永无止境的，除非特殊情况下，不得已才会关机。</p>
+<p><strong>关机指令为：shutdown</strong> ；</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">sync # 将数据由内存同步到硬盘中。</span><br><span class="line"></span><br><span class="line">shutdown # 关机指令，你可以man shutdown 来看一下帮助文档。例如你可以运行如下命令关机：</span><br><span class="line"></span><br><span class="line">shutdown –h 10 # 这个命令告诉大家，计算机将在10分钟后关机</span><br><span class="line"></span><br><span class="line">shutdown –h now # 立马关机</span><br><span class="line"></span><br><span class="line">shutdown –h 20:25 # 系统会在今天20:25关机</span><br><span class="line"></span><br><span class="line">shutdown –h +10 # 十分钟后关机</span><br><span class="line"></span><br><span class="line">shutdown –r now # 系统立马重启</span><br><span class="line"></span><br><span class="line">shutdown –r +10 # 系统十分钟后重启</span><br><span class="line"></span><br><span class="line">reboot # 就是重启，等同于 shutdown –r now</span><br><span class="line"></span><br><span class="line">halt # 关闭系统，等同于shutdown –h now 和 poweroff</span><br></pre></td></tr></table></figure>
+
+<p>最后总结一下，不管是重启系统还是关闭系统，首先要运行 <strong>sync</strong> 命令，把内存中的数据写到磁盘中。</p>
+<blockquote>
+<p>系统目录结构</p>
+</blockquote>
+<p>一切皆文件</p>
+<p>登录系统后，在当前命令窗口下输入命令：查看</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls /</span><br></pre></td></tr></table></figure>
+
+<p>你会看到如下图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210719173954.png" alt="image-20210719173954367"></p>
+<p>树状目录结构：（Linux的一切资源都挂载在这个 / 根节点下）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210719174012.png" alt="image-20210719174012431"></p>
+<p><strong>以下是对这些目录的解释：</strong></p>
+<ul>
+<li><strong>/bin</strong>：bin是Binary的缩写, 这个目录存放着<strong>最经常使用的命令</strong>。（不要动）</li>
+<li><strong>/boot：</strong> 这里存放的是<strong>启动Linux时使用的一些核心文件</strong>，包括一些连接文件以及镜像文件。（不要动）</li>
+<li><strong>/dev ：</strong> dev是Device(设备)的缩写, <strong>存放的是Linux的外部设备</strong>，在Linux中访问设备的方式和访问文件的方式是相同的。</li>
+<li><strong>/etc：</strong> <strong>这个目录用来存放所有的系统管理所需要的配置文件和子目录</strong>。</li>
+<li><strong>/home</strong>：用户的主目录，在Linux中，每个用户都有一个自己的目录，一般该<strong>目录名是以用户的账号命名</strong>的。</li>
+<li><strong>/lib</strong>：这个目录里存放着系统最<strong>基本的动态连接共享库</strong>，其作用类似于Windows里的DLL文件。</li>
+<li><strong>/lost+found</strong>：这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。</li>
+<li><strong>/media</strong>：linux系统会自动<strong>识别一些设备</strong>，例如U盘、光驱等等，当识别后，linux会把识别的设备挂载到这个目录下。</li>
+<li><strong>/mnt</strong>：<strong>系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在/mnt/上</strong>，然后进入该目录就可以查看光驱里的内容了。</li>
+<li><strong>/opt</strong>：<strong>这是给主机额外安装软件所摆放的目录。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。</strong></li>
+<li><strong>/proc</strong>：这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。</li>
+<li><strong>/root</strong>：<strong>该目录为系统管理员，也称作超级权限者的用户主目录。</strong></li>
+<li><strong>/sbin</strong>：s就是Super User的意思，这里存放的是系统管理员使用的系统管理程序。</li>
+<li><strong>/srv</strong>：该目录存放一些服务启动之后需要提取的数据。</li>
+<li><strong>/sys</strong>：这是linux2.6内核的一个很大的变化。该目录下安装了2.6内核中新出现的一个文件系统 sysfs 。</li>
+<li><strong>/tmp</strong>：<strong>这个目录是用来存放一些临时文件的。</strong></li>
+<li><strong>/usr</strong>：<strong>这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于windows下的program files目录。</strong></li>
+<li><strong>/usr/bin：</strong> 系统用户使用的应用程序。</li>
+<li><strong>/usr/sbin：</strong> 超级用户使用的比较高级的管理程序和系统守护程序。</li>
+<li><strong>/usr/src：</strong> 内核源代码默认的放置目录。</li>
+<li><strong>/var</strong>：<strong>这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件。</strong></li>
+<li><strong>/run</strong>：是一个临时文件系统，存储系统启动以来的信息。当系统重启时，这个目录下的文件应该被删掉或清除。</li>
+</ul>
+<h1 id="目录管理"><a href="#目录管理" class="headerlink" title="目录管理"></a>目录管理</h1><blockquote>
+<p>绝对路径和相对路径</p>
+</blockquote>
+<p>我们知道Linux的目录结构为树状结构，最顶级的目录为根目录 /。</p>
+<p>其他目录通过挂载可以将它们添加到树中，通过解除挂载可以移除它们。</p>
+<p>在开始本教程前我们需要先知道什么是绝对路径与相对路径。</p>
+<p><strong>绝对路径：</strong></p>
+<p>路径的写法，由根目录 / 写起，例如：/usr/share/doc 这个目录。</p>
+<p><strong>相对路径：</strong></p>
+<p>路径的写法，不是由 / 写起，例如由 /usr/share/doc 要到 /usr/share/man 底下时，可以写成：cd ../man 这就是相对路径的写法啦！</p>
+<blockquote>
+<p>处理目录的常用命令</p>
+</blockquote>
+<p>接下来我们就来看几个常见的处理目录的命令吧：</p>
+<ul>
+<li>ls: 列出目录</li>
+<li>cd：切换目录</li>
+<li>pwd：显示目前的目录</li>
+<li>mkdir：创建一个新的目录</li>
+<li>rmdir：删除一个空的目录</li>
+<li>cp: 复制文件或目录</li>
+<li>rm: 移除文件或目录</li>
+<li>mv: 移动文件与目录，或修改文件与目录的名称</li>
+</ul>
+<p>你可以使用 <em>man [命令]</em> 来查看各个命令的使用文档，如 ：man cp。</p>
+<blockquote>
+<p>ls （列出目录）</p>
+</blockquote>
+<p><strong>在Linux系统当中， ls 命令可能是最常被运行的。</strong></p>
+<p>语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# ls [-aAdfFhilnrRSt] 目录名称</span><br></pre></td></tr></table></figure>
+
+<p><strong>选项与参数：</strong></p>
+<ul>
+<li><strong>-a ：全部的文件，连同隐藏文件( 开头为 . 的文件) 一起列出来(常用)</strong></li>
+<li><strong>-l ：长数据串列出，包含文件的属性与权限等等数据；(常用)</strong></li>
+</ul>
+<p>将目录下的所有文件列出来(含属性与隐藏档)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# ls -al ~</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>cd （切换目录）</p>
+</blockquote>
+<p><strong>cd是Change Directory的缩写，这是用来变换工作目录的命令。</strong></p>
+<p>语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd [相对路径或绝对路径]</span><br></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 切换到用户目录下</span><br><span class="line">[root@kuangshen /]# cd home  </span><br><span class="line"></span><br><span class="line"># 使用 mkdir 命令创建 kuangstudy 目录</span><br><span class="line">[root@kuangshen home]# mkdir kuangstudy</span><br><span class="line"></span><br><span class="line"># 进入 kuangstudy 目录</span><br><span class="line">[root@kuangshen home]# cd kuangstudy</span><br><span class="line"></span><br><span class="line"># 回到上一级</span><br><span class="line">[root@kuangshen kuangstudy]# cd ..</span><br><span class="line"></span><br><span class="line"># 回到根目录</span><br><span class="line">[root@kuangshen kuangstudy]# cd /</span><br><span class="line"></span><br><span class="line"># 表示回到自己的家目录，亦即是 /root 这个目录</span><br><span class="line">[root@kuangshen kuangstudy]# cd ~</span><br></pre></td></tr></table></figure>
+
+<p>接下来大家多操作几次应该就可以很好的理解 cd 命令的。</p>
+<blockquote>
+<p>pwd ( 显示目前所在的目录 )</p>
+</blockquote>
+<p>pwd 是 <strong>Print Working Directory</strong> 的缩写，也就是显示目前所在目录的命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@kuangshen kuangstudy]#pwd [-P]</span><br></pre></td></tr></table></figure>
+
+<p>选项与参数：**-P** ：显示出确实的路径，而非使用连接(link) 路径。</p>
+<p>测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 单纯显示出目前的工作目录</span><br><span class="line">[root@kuangshen ~]# pwd</span><br><span class="line">/root</span><br><span class="line"></span><br><span class="line"># 如果是链接，要显示真实地址，可以使用 -P参数</span><br><span class="line">[root@kuangshen /]# cd bin</span><br><span class="line">[root@kuangshen bin]# pwd -P</span><br><span class="line">/usr/bin</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>mkdir （创建新目录）</p>
+</blockquote>
+<p>如果想要创建新的目录的话，那么就使用mkdir (make directory)吧。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir [-mp] 目录名称</span><br></pre></td></tr></table></figure>
+
+<p>选项与参数：</p>
+<ul>
+<li>-m ：配置文件的权限喔！直接配置，不需要看默认权限 (umask) 的脸色～</li>
+<li>-p ：帮助你直接将所需要的目录(包含上一级目录)递归创建起来！</li>
+</ul>
+<p>测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 进入我们用户目录下</span><br><span class="line">[root@kuangshen /]# cd /home</span><br><span class="line"></span><br><span class="line"># 创建一个 test 文件夹</span><br><span class="line">[root@kuangshen home]# mkdir test</span><br><span class="line"></span><br><span class="line"># 创建多层级目录</span><br><span class="line">[root@kuangshen home]# mkdir test1/test2/test3/test4</span><br><span class="line">mkdir: cannot create directory ‘test1/test2/test3/test4’:</span><br><span class="line">No such file or directory  # &lt;== 没办法直接创建此目录啊！</span><br><span class="line"></span><br><span class="line"># 加了这个 -p 的选项，可以自行帮你创建多层目录！</span><br><span class="line">[root@kuangshen home]# mkdir -p test1/test2/test3/test4</span><br><span class="line"></span><br><span class="line"># 创建权限为 rwx--x--x 的目录。</span><br><span class="line">[root@kuangshen home]# mkdir -m 711 test2</span><br><span class="line">[root@kuangshen home]# ls -l</span><br><span class="line">drwxr-xr-x 2 root root  4096 Mar 12 21:55 test</span><br><span class="line">drwxr-xr-x 3 root root  4096 Mar 12 21:56 test1</span><br><span class="line">drwx--x--x 2 root root  4096 Mar 12 21:58 test2</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>rmdir ( 删除空的目录 )</p>
+</blockquote>
+<p>语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rmdir [-p] 目录名称</span><br></pre></td></tr></table></figure>
+
+<p>选项与参数：**-p ：**连同上一级『空的』目录也一起删除</p>
+<p>测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 看看有多少目录存在？</span><br><span class="line">[root@kuangshen home]# ls -l</span><br><span class="line">drwxr-xr-x 2 root root  4096 Mar 12 21:55 test</span><br><span class="line">drwxr-xr-x 3 root root  4096 Mar 12 21:56 test1</span><br><span class="line">drwx--x--x 2 root root  4096 Mar 12 21:58 test2</span><br><span class="line"></span><br><span class="line"># 可直接删除掉，没问题</span><br><span class="line">[root@kuangshen home]# rmdir test</span><br><span class="line"></span><br><span class="line"># 因为尚有内容，所以无法删除！</span><br><span class="line">[root@kuangshen home]# rmdir test1</span><br><span class="line">rmdir: failed to remove ‘test1’: Directory not empty</span><br><span class="line"></span><br><span class="line"># 利用 -p 这个选项，立刻就可以将 test1/test2/test3/test4 依次删除。</span><br><span class="line">[root@kuangshen home]# rmdir -p test1/test2/test3/test4</span><br></pre></td></tr></table></figure>
+
+<p>注意：这个 rmdir 仅能删除空的目录，你可以使用 rm 命令来删除非空目录，后面我们会将！</p>
+<blockquote>
+<p>cp ( 复制文件或目录 )</p>
+</blockquote>
+<p>语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# cp [-adfilprsu] 来源档(source) 目标档(destination)</span><br><span class="line">[root@www ~]# cp [options] source1 source2 source3 .... directory</span><br></pre></td></tr></table></figure>
+
+<p>选项与参数：</p>
+<ul>
+<li><strong>-a：</strong>相当於 -pdr 的意思，至於 pdr 请参考下列说明；(常用)</li>
+<li><strong>-p：</strong>连同文件的属性一起复制过去，而非使用默认属性(备份常用)；</li>
+<li><strong>-d：</strong>若来源档为连结档的属性(link file)，则复制连结档属性而非文件本身；</li>
+<li><strong>-r：</strong>递归持续复制，用於目录的复制行为；(常用)</li>
+<li><strong>-f：</strong>为强制(force)的意思，若目标文件已经存在且无法开启，则移除后再尝试一次；</li>
+<li><strong>-i：</strong>若目标档(destination)已经存在时，在覆盖时会先询问动作的进行(常用)</li>
+<li><strong>-l：</strong>进行硬式连结(hard link)的连结档创建，而非复制文件本身。</li>
+<li><strong>-s：</strong>复制成为符号连结档 (symbolic link)，亦即『捷径』文件；</li>
+<li><strong>-u：</strong>若 destination 比 source 旧才升级 destination ！</li>
+</ul>
+<p>测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 找一个有文件的目录，我这里找到 root目录</span><br><span class="line">[root@kuangshen home]# cd /root</span><br><span class="line">[root@kuangshen ~]# ls</span><br><span class="line">install.sh</span><br><span class="line">[root@kuangshen ~]# cd /home</span><br><span class="line"></span><br><span class="line"># 复制 root目录下的install.sh 到 home目录下</span><br><span class="line">[root@kuangshen home]# cp /root/install.sh /home</span><br><span class="line">[root@kuangshen home]# ls</span><br><span class="line">install.sh</span><br><span class="line"></span><br><span class="line"># 再次复制，加上-i参数，增加覆盖询问？</span><br><span class="line">[root@kuangshen home]# cp -i /root/install.sh /home</span><br><span class="line">cp: overwrite ‘/home/install.sh’? y # n不覆盖，y为覆盖</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>rm ( 移除文件或目录 )</p>
+</blockquote>
+<p>语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm [-fir] 文件或目录</span><br></pre></td></tr></table></figure>
+
+<p>选项与参数：</p>
+<ul>
+<li>-f ：就是 force 的意思，忽略不存在的文件，不会出现警告信息；</li>
+<li>-i ：互动模式，在删除前会询问使用者是否动作</li>
+<li>-r ：递归删除啊！最常用在目录的删除了！这是非常危险的选项！！！</li>
+</ul>
+<p>测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 将刚刚在 cp 的实例中创建的 install.sh删除掉！</span><br><span class="line">[root@kuangshen home]# rm -i install.sh</span><br><span class="line">rm: remove regular file ‘install.sh’? y</span><br><span class="line"># 如果加上 -i 的选项就会主动询问喔，避免你删除到错误的档名！</span><br><span class="line"></span><br><span class="line"># 尽量不要在服务器上使用 rm -rf /</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>mv  ( 移动文件与目录，或修改名称 )</p>
+</blockquote>
+<p>语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# mv [-fiu] source destination</span><br><span class="line">[root@www ~]# mv [options] source1 source2 source3 .... directory</span><br></pre></td></tr></table></figure>
+
+<p>选项与参数：</p>
+<ul>
+<li>-f ：force 强制的意思，如果目标文件已经存在，不会询问而直接覆盖；</li>
+<li>-i ：若目标文件 (destination) 已经存在时，就会询问是否覆盖！</li>
+<li>-u ：若目标文件已经存在，且 source 比较新，才会升级 (update)</li>
+</ul>
+<p>测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 复制一个文件到当前目录</span><br><span class="line">[root@kuangshen home]# cp /root/install.sh /home</span><br><span class="line"></span><br><span class="line"># 创建一个文件夹 test</span><br><span class="line">[root@kuangshen home]# mkdir test</span><br><span class="line"></span><br><span class="line"># 将复制过来的文件移动到我们创建的目录，并查看</span><br><span class="line">[root@kuangshen home]# mv install.sh test</span><br><span class="line">[root@kuangshen home]# ls</span><br><span class="line">test</span><br><span class="line">[root@kuangshen home]# cd test</span><br><span class="line">[root@kuangshen test]# ls</span><br><span class="line">install.sh</span><br><span class="line"></span><br><span class="line"># 将文件夹重命名，然后再次查看！</span><br><span class="line">[root@kuangshen test]# cd ..</span><br><span class="line">[root@kuangshen home]# mv test mvtest</span><br><span class="line">[root@kuangshen home]# ls</span><br><span class="line">mvtest</span><br></pre></td></tr></table></figure>
+
+<h2 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h2><blockquote>
+<p>看懂文件属性</p>
+</blockquote>
+<p>Linux系统是一种典型的多用户系统，不同的用户处于不同的地位，拥有不同的权限。为了保护系统的安全性，Linux系统对不同的用户访问同一文件（包括目录文件）的权限做了不同的规定。</p>
+<p>在Linux中我们可以使用<code>ll</code>或者<code>ls –l</code>命令来显示一个文件的属性以及文件所属的用户和组，如：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/uJDAUKrGC7JGpeIS4j9q3B4LQhsQkFiauXAQN0qOnVCYvj7Cm1oQbvexVDFqPhUIeTe83BdAHlXCJhGoNabSFKQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>实例中，boot文件的第一个属性用”d”表示。”d”在Linux中代表该文件是一个目录文件。</p>
+<p>在Linux中第一个字符代表这个文件是目录、文件或链接文件等等：</p>
+<ul>
+<li><strong>当为[ d ]则是目录</strong></li>
+<li><strong>当为[ - ]则是文件；</strong></li>
+<li><strong>若是[ l ]则表示为链接文档 ( link file )；</strong></li>
+<li><strong>若是[ b ]则表示为装置文件里面的可供储存的接口设备 ( 可随机存取装置 )；</strong></li>
+<li><strong>若是[ c ]则表示为装置文件里面的串行端口设备，例如键盘、鼠标 ( 一次性读取装置 )。</strong></li>
+</ul>
+<p>接下来的字符中，以三个为一组，且均为『rwx』 的三个参数的组合。</p>
+<p>其中，[ r ]代表可读(read)、[ w ]代表可写(write)、[ x ]代表可执行(execute)。</p>
+<p>要注意的是，这三个权限的位置不会改变，如果没有权限，就会出现减号[ - ]而已。</p>
+<p>每个文件的属性由左边第一部分的10个字符来确定（如下图）：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/uJDAUKrGC7JGpeIS4j9q3B4LQhsQkFiauEybzG2XIdlOMLyO13lMfPKUWRpGJGgyxCAJ9mics9dTZ1qrWDIvleYQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>从左至右用0-9这些数字来表示。</strong></p>
+<p><strong>第0位确定文件类型，第1-3位确定属主（该文件的所有者）拥有该文件的权限。第4-6位确定属组（所有者的同组用户）拥有该文件的权限，第7-9位确定其他用户拥有该文件的权限。</strong></p>
+<p><strong>其中：</strong></p>
+<p><strong>第1、4、7位表示读权限，如果用”r”字符表示，则有读权限，如果用”-“字符表示，则没有读权限；</strong></p>
+<p><strong>第2、5、8位表示写权限，如果用”w”字符表示，则有写权限，如果用”-“字符表示没有写权限；</strong></p>
+<p><strong>第3、6、9位表示可执行权限，如果用”x”字符表示，则有执行权限，如果用”-“字符表示，则没有执行权限。</strong></p>
+<p>对于文件来说，它都有一个特定的所有者，也就是对该文件具有所有权的用户。</p>
+<p>同时，在Linux系统中，用户是按组分类的，一个用户属于一个或多个组。</p>
+<p>文件所有者以外的用户又可以分为文件所有者的同组用户和其他用户。</p>
+<p>因此，Linux系统按文件所有者、文件所有者同组用户和其他用户来规定了不同的文件访问权限。</p>
+<p>在以上实例中，boot 文件是一个目录文件，属主和属组都为 root。</p>
+<blockquote>
+<p>修改文件属性</p>
+</blockquote>
+<p><strong>1、chgrp：更改文件属组</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chgrp [-R] 属组名 文件名</span><br></pre></td></tr></table></figure>
+
+<p>-R：递归更改文件属组，就是在更改某个目录文件的属组时，如果加上-R的参数，那么该目录下的所有文件的属组都会更改。</p>
+<p><strong>2、chown：更改文件属主，也可以同时更改文件属组</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chown [–R] 属主名 文件名</span><br><span class="line">chown [-R] 属主名：属组名 文件名</span><br></pre></td></tr></table></figure>
+
+<p><strong>3、chmod：更改文件9个属性</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod [-R] xyz 文件或目录</span><br></pre></td></tr></table></figure>
+
+<p>Linux文件属性有两种设置方法，一种是数字，一种是符号。</p>
+<p>Linux文件的基本权限就有九个，分别是owner/group/others三种身份各有自己的read/write/execute权限。</p>
+<p>先复习一下刚刚上面提到的数据：文件的权限字符为：『-rwxrwxrwx』， 这九个权限是三个三个一组的！其中，我们可以使用数字来代表各个权限，各权限的分数对照表如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">r:4     w:2         x:1</span><br></pre></td></tr></table></figure>
+
+<p>每种身份(owner/group/others)各自的三个权限(r/w/x)分数是需要累加的，例如当权限为：[-rwxrwx—] 分数则是：</p>
+<ul>
+<li>owner = rwx = 4+2+1 = 7</li>
+<li>group = rwx = 4+2+1 = 7</li>
+<li>others= — = 0+0+0 = 0</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 770 filename</span><br></pre></td></tr></table></figure>
+
+<p>可以自己下去多进行测试！</p>
+<h2 id="文件内容查看"><a href="#文件内容查看" class="headerlink" title="文件内容查看"></a>文件内容查看</h2><blockquote>
+<p>概述</p>
+</blockquote>
+<p>Linux系统中使用以下命令来查看文件的内容：</p>
+<ul>
+<li>cat 由第一行开始显示文件内容</li>
+<li>tac 从最后一行开始显示，可以看出 tac 是 cat 的倒着写！</li>
+<li>nl  显示的时候，顺道输出行号！</li>
+<li>more 一页一页的显示文件内容</li>
+<li>less 与 more 类似，但是比 more 更好的是，他可以往前翻页！</li>
+<li>head 只看头几行</li>
+<li>tail 只看尾巴几行</li>
+</ul>
+<p>你可以使用 *man [命令]*来查看各个命令的使用文档，如 ：man cp。</p>
+<blockquote>
+<p>cat 由第一行开始显示文件内容</p>
+</blockquote>
+<p>语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat [-AbEnTv]</span><br></pre></td></tr></table></figure>
+
+<p>选项与参数：</p>
+<ul>
+<li>-A ：相当於 -vET 的整合选项，可列出一些特殊字符而不是空白而已；</li>
+<li>-b ：列出行号，仅针对非空白行做行号显示，空白行不标行号！</li>
+<li>-E ：将结尾的断行字节 $ 显示出来；</li>
+<li>-n ：列印出行号，连同空白行也会有行号，与 -b 的选项不同；</li>
+<li>-T ：将 [tab] 按键以 ^I 显示出来；</li>
+<li>-v ：列出一些看不出来的特殊字符</li>
+</ul>
+<p>测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 查看网络配置: 文件地址 /etc/sysconfig/network-scripts/</span><br><span class="line">[root@kuangshen ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0</span><br><span class="line">DEVICE=eth0</span><br><span class="line">BOOTPROTO=dhcp</span><br><span class="line">ONBOOT=yes</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>tac</p>
+</blockquote>
+<p>tac与cat命令刚好相反，文件内容从最后一行开始显示，可以看出 tac 是 cat 的倒着写！如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@kuangshen ~]# tac /etc/sysconfig/network-scripts/ifcfg-eth0</span><br><span class="line">ONBOOT=yes</span><br><span class="line">BOOTPROTO=dhcp</span><br><span class="line">DEVICE=eth0</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>nl  显示行号</p>
+</blockquote>
+<p>语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nl [-bnw] 文件</span><br></pre></td></tr></table></figure>
+
+<p>选项与参数：</p>
+<ul>
+<li>-b ：指定行号指定的方式，主要有两种：-b a ：表示不论是否为空行，也同样列出行号(类似 cat -n)；-b t ：如果有空行，空的那一行不要列出行号(默认值)；</li>
+<li>-n ：列出行号表示的方法，主要有三种：-n ln ：行号在荧幕的最左方显示；-n rn ：行号在自己栏位的最右方显示，且不加 0 ；-n rz ：行号在自己栏位的最右方显示，且加 0 ；</li>
+<li>-w ：行号栏位的占用的位数。</li>
+</ul>
+<p>测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@kuangshen ~]# nl /etc/sysconfig/network-scripts/ifcfg-eth0</span><br><span class="line">1DEVICE=eth0</span><br><span class="line">2BOOTPROTO=dhcp</span><br><span class="line">3ONBOOT=yes</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>more  一页一页翻动</p>
+</blockquote>
+<p>在 more 这个程序的运行过程中，你有几个按键可以按的：</p>
+<ul>
+<li>空白键 (space)：代表向下翻一页；</li>
+<li>Enter   ：代表向下翻『一行』；</li>
+<li>/字串   ：代表在这个显示的内容当中，向下搜寻『字串』这个关键字；</li>
+<li>:f    ：立刻显示出档名以及目前显示的行数；</li>
+<li>q    ：代表立刻离开 more ，不再显示该文件内容。</li>
+<li>b 或 [ctrl]-b ：代表往回翻页，不过这动作只对文件有用，对管线无用。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@kuangshen etc]# more /etc/csh.login</span><br><span class="line">....(中间省略)....</span><br><span class="line">--More--(28%) # 重点在这一行喔！你的光标也会在这里等待你的命令</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>less  一页一页翻动，以下实例输出/etc/man.config文件的内容：</p>
+</blockquote>
+<p>less运行时可以输入的命令有：</p>
+<ul>
+<li>空白键  ：向下翻动一页；</li>
+<li>[pagedown]：向下翻动一页；</li>
+<li>[pageup] ：向上翻动一页；</li>
+<li>/字串  ：向下搜寻『字串』的功能；</li>
+<li>?字串  ：向上搜寻『字串』的功能；</li>
+<li>n   ：重复前一个搜寻 (与 / 或 ? 有关！)</li>
+<li>N   ：反向的重复前一个搜寻 (与 / 或 ? 有关！)</li>
+<li>q   ：离开 less 这个程序；</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@kuangshen etc]# more /etc/csh.login</span><br><span class="line">....(中间省略)....</span><br><span class="line">:   # 这里可以等待你输入命令！</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>head  取出文件前面几行</p>
+</blockquote>
+<p>语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head [-n number] 文件</span><br></pre></td></tr></table></figure>
+
+<p>选项与参数：**-n** 后面接数字，代表显示几行的意思！</p>
+<p>默认的情况中，显示前面 10 行！若要显示前 20 行，就得要这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@kuangshen etc]# head -n 20 /etc/csh.login</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>tail  取出文件后面几行</p>
+</blockquote>
+<p>语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail [-n number] 文件</span><br></pre></td></tr></table></figure>
+
+<p>选项与参数：</p>
+<ul>
+<li>-n ：后面接数字，代表显示几行的意思</li>
+</ul>
+<p>默认的情况中，显示最后 10 行！若要显示最后 20 行，就得要这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@kuangshen etc]# tail -n 20 /etc/csh.login</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>拓展：Linux 链接概念</p>
+</blockquote>
+<p>Linux 链接分两种，一种被称为硬链接（Hard Link），另一种被称为符号链接（Symbolic Link）。</p>
+<p>情况下，<strong>ln</strong> 命令产生硬链接。</p>
+<p><strong>硬连接</strong></p>
+<p>硬<strong>连接指通过索引节点来进行连接。在 Linux 的文件系统中，保存在磁盘分区中的文件不管是什么类型都给它分配一个编号，称为索引节点号(Inode Index)。</strong>在 Linux 中，多个文件名指向同一索引节点是存在的。比如：A 是 B 的硬链接（A 和 B 都是文件名），则 A 的目录项中的 inode 节点号与 B 的目录项中的 inode 节点号相同，即一个 inode 节点对应两个不同的文件名，两个文件名指向同一个文件，A 和 B 对文件系统来说是完全平等的。删除其中任何一个都不会影响另外一个的访问。</p>
+<p>硬连接的作用是允许一个文件拥有多个有效路径名，这样用户就可以建立硬连接到重要文件，以防止“误删”的功能。其原因如上所述，因为对应该目录的索引节点有一个以上的连接。只删除一个连接并不影响索引节点本身和其它的连接，只有当最后一个连接被删除后，文件的数据块及目录的连接才会被释放。也就是说，文件真正删除的条件是与之相关的所有硬连接文件均被删除。</p>
+<p><strong>软连接</strong></p>
+<p><strong>另外一种连接称之为符号连接（Symbolic Link），也叫软连接。软链接文件有类似于 Windows 的快捷方式</strong>。它实际上是一个特殊的文件。在符号连接中，文件实际上是一个文本文件，其中包含的有另一文件的位置信息。比如：A 是 B 的软链接（A 和 B 都是文件名），A 的目录项中的 inode 节点号与 B 的目录项中的 inode 节点号不相同，A 和 B 指向的是两个不同的 inode，继而指向两块不同的数据块。但是 A 的数据块中存放的只是 B 的路径名（可以根据这个找到 B 的目录项）。A 和 B 之间是“主从”关系，如果 B 被删除了，A 仍然存在（因为两个是不同的文件），但指向的是一个无效的链接。</p>
+<p><strong>测试：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@kuangshen /]# cd /home</span><br><span class="line">[root@kuangshen home]# touch f1 # 创建一个测试文件f1</span><br><span class="line">[root@kuangshen home]# ls</span><br><span class="line">f1</span><br><span class="line">[root@kuangshen home]# ln f1 f2     # 创建f1的一个硬连接文件f2</span><br><span class="line">[root@kuangshen home]# ln -s f1 f3   # 创建f1的一个符号连接文件f3</span><br><span class="line">[root@kuangshen home]# ls -li       # -i参数显示文件的inode节点信息</span><br><span class="line">397247 -rw-r--r-- 2 root root     0 Mar 13 00:50 f1</span><br><span class="line">397247 -rw-r--r-- 2 root root     0 Mar 13 00:50 f2</span><br><span class="line">397248 lrwxrwxrwx 1 root root     2 Mar 13 00:50 f3 -&gt; f1</span><br></pre></td></tr></table></figure>
+
+<p>从上面的结果中可以看出，硬连接文件 f2 与原文件 f1 的 inode 节点相同，均为 397247，然而符号连接文件的 inode 节点不同。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># echo 字符串输出 &gt;&gt; f1 输出到 f1文件</span><br><span class="line">[root@kuangshen home]# echo &quot;I am f1 file&quot; &gt;&gt;f1</span><br><span class="line">[root@kuangshen home]# cat f1</span><br><span class="line">I am f1 file</span><br><span class="line">[root@kuangshen home]# cat f2</span><br><span class="line">I am f1 file</span><br><span class="line">[root@kuangshen home]# cat f3</span><br><span class="line">I am f1 file</span><br><span class="line">[root@kuangshen home]# rm -f f1</span><br><span class="line">[root@kuangshen home]# cat f2</span><br><span class="line">I am f1 file</span><br><span class="line">[root@kuangshen home]# cat f3</span><br><span class="line">cat: f3: No such file or directory</span><br></pre></td></tr></table></figure>
+
+<p>通过上面的测试可以看出：当删除原始文件 f1 后，硬连接 f2 不受影响，但是符号连接 f1 文件无效；</p>
+<p>依此您可以做一些相关的测试，可以得到以下全部结论：</p>
+<ul>
+<li>删除符号连接f3,对f1,f2无影响；</li>
+<li>删除硬连接f2，对f1,f3也无影响；</li>
+<li>删除原文件f1，对硬连接f2没有影响，导致符号连接f3失效；</li>
+<li>同时删除原文件f1,硬连接f2，整个文件会真正的被删除。</li>
+</ul>
+<blockquote>
+<p>什么是Vim编辑器</p>
+</blockquote>
+<p>Vim是从 vi 发展出来的一个文本编辑器。代码补完、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。</p>
+<p>简单的来说， vi 是老式的字处理器，不过功能已经很齐全了，但是还是有可以进步的地方。</p>
+<p>vim 则可以说是程序开发者的一项很好用的工具。</p>
+<p>所有的 Unix Like 系统都会内建 vi 文书编辑器，其他的文书编辑器则不一定会存在。</p>
+<p>连 vim 的官方网站 (<a target="_blank" rel="noopener" href="http://www.vim.org/">http://www.vim.org</a>) 自己也说 vim 是一个程序开发工具而不是文字处理软件。</p>
+<p>vim 键盘图：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/uJDAUKrGC7L1I72C1HrwJ9bG6XAbVggM4RsQuEaoMI78gr3jGxkVH7ONWyDHmremOHiaUibc3sqPRfEuVuHqicfqA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<blockquote>
+<p>三种使用模式</p>
+</blockquote>
+<p>基本上 vi/vim 共分为三种模式，分别是<strong>命令模式（Command mode）</strong>，<strong>输入模式（Insert mode）</strong>和<strong>底线命令模式（Last line mode）</strong>。这三种模式的作用分别是：</p>
+<p><strong>命令模式：</strong></p>
+<p>用户刚刚启动 vi/vim，便进入了命令模式。</p>
+<p>此状态下敲击键盘动作会被Vim识别为命令，而非输入字符。比如我们此时按下i，并不会输入一个字符，i被当作了一个命令。</p>
+<p>以下是常用的几个命令：</p>
+<ul>
+<li><strong>i</strong> 切换到输入模式，以输入字符。</li>
+<li><strong>x</strong> 删除当前光标所在处的字符。</li>
+<li><strong>:</strong> 切换到底线命令模式，以在最底一行输入命令。</li>
+</ul>
+<p>若想要编辑文本：启动Vim，进入了命令模式，按下i，切换到输入模式。</p>
+<p>命令模式只有一些最基本的命令，因此仍要依靠底线命令模式输入更多命令。</p>
+<p><strong>输入模式：</strong></p>
+<p>在命令模式下按下i就进入了输入模式。</p>
+<p>在输入模式中，可以使用以下按键：</p>
+<ul>
+<li><strong>字符按键以及Shift组合</strong>，输入字符</li>
+<li><strong>ENTER</strong>，回车键，换行</li>
+<li><strong>BACK SPACE</strong>，退格键，删除光标前一个字符</li>
+<li><strong>DEL</strong>，删除键，删除光标后一个字符</li>
+<li><strong>方向键</strong>，在文本中移动光标</li>
+<li><strong>HOME</strong>/<strong>END</strong>，移动光标到行首/行尾</li>
+<li><strong>Page Up</strong>/<strong>Page Down</strong>，上/下翻页</li>
+<li><strong>Insert</strong>，切换光标为输入/替换模式，光标将变成竖线/下划线</li>
+<li><strong>ESC</strong>，退出输入模式，切换到命令模式</li>
+</ul>
+<p><strong>底线命令模式</strong></p>
+<p>在命令模式下按下:（英文冒号）就进入了底线命令模式。</p>
+<p>底线命令模式可以输入单个或多个字符的命令，可用的命令非常多。</p>
+<p>在底线命令模式中，基本的命令有（已经省略了冒号）：</p>
+<ul>
+<li>q 退出程序</li>
+<li>w 保存文件</li>
+</ul>
+<p>按ESC键可随时退出底线命令模式。</p>
+<p>简单的说，我们可以将这三个模式想成底下的图标来表示：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/uJDAUKrGC7L1I72C1HrwJ9bG6XAbVggMIxVoDyQ4LWxSbHDjAYfHuId7xfHHichtqZK2ehsXvcC9KiaibPf68s9dg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<blockquote>
+<p>上手体验一下，在home目录下测试</p>
+</blockquote>
+<p>如果你想要使用 vi 来建立一个名为 kuangstudy.txt 的文件时，你可以这样做：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@kuangshen home]# vim kuangstudy.txt</span><br></pre></td></tr></table></figure>
+
+<p>然后就会进入文件</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/uJDAUKrGC7L1I72C1HrwJ9bG6XAbVggM4461hqusRbQZ32967zqUhChqXbCzJTN3I20RpiaVbFqWvHicvicc9icBUQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>按下 i 进入输入模式(也称为编辑模式)，开始编辑文字</strong></p>
+<p>在一般模式之中，只要按下 i, o, a 等字符就可以进入输入模式了！</p>
+<p>在编辑模式当中，你可以发现在左下角状态栏中会出现 –INSERT- 的字样，那就是可以输入任意字符的提示。</p>
+<p>这个时候，键盘上除了 <strong>Esc</strong> 这个按键之外，其他的按键都可以视作为一般的输入按钮了，所以你可以进行任何的编辑。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/uJDAUKrGC7L1I72C1HrwJ9bG6XAbVggMEarICtkr8ia1N6zqcuv3ROj1TBDoMicM5DoYzaGU29qQ2mbQhlBUbbww/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>按下 ESC 按钮回到一般模式</strong></p>
+<p>好了，假设我已经按照上面的样式给他编辑完毕了，那么应该要如何退出呢？是的！没错！就是给他按下 <strong>Esc</strong> 这个按钮即可！马上你就会发现画面左下角的 – INSERT – 不见了！</p>
+<p>在一般模式中按下 <strong>:wq</strong> 储存后离开 vim！</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/uJDAUKrGC7L1I72C1HrwJ9bG6XAbVggMeA5EoVUt4j2544oibjdoeRah06s2ALh1QDXwep41Mj4ZnhWyb6icdp0w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>OK! 这样我们就成功创建了一个 kuangstudy.txt 的文件。</p>
+<blockquote>
+<p>Vim 按键说明</p>
+</blockquote>
+<p>除了上面简易范例的 i, Esc, :wq 之外，其实 vim 还有非常多的按键可以使用。</p>
+<p><strong>第一部分：一般模式可用的光标移动、复制粘贴、搜索替换等</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">移动光标的方法</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">h 或 向左箭头键(←)</td>
+<td>光标向左移动一个字符</td>
+</tr>
+<tr>
+<td align="left">j 或 向下箭头键(↓)</td>
+<td>光标向下移动一个字符</td>
+</tr>
+<tr>
+<td align="left">k 或 向上箭头键(↑)</td>
+<td>光标向上移动一个字符</td>
+</tr>
+<tr>
+<td align="left">l 或 向右箭头键(→)</td>
+<td>光标向右移动一个字符</td>
+</tr>
+<tr>
+<td align="left">[Ctrl] + [f]</td>
+<td>屏幕『向下』移动一页，相当于 [Page Down]按键 (常用)</td>
+</tr>
+<tr>
+<td align="left">[Ctrl] + [b]</td>
+<td>屏幕『向上』移动一页，相当于 [Page Up] 按键 (常用)</td>
+</tr>
+<tr>
+<td align="left">[Ctrl] + [d]</td>
+<td>屏幕『向下』移动半页</td>
+</tr>
+<tr>
+<td align="left">[Ctrl] + [u]</td>
+<td>屏幕『向上』移动半页</td>
+</tr>
+<tr>
+<td align="left">+</td>
+<td>光标移动到非空格符的下一行</td>
+</tr>
+<tr>
+<td align="left">-</td>
+<td>光标移动到非空格符的上一行</td>
+</tr>
+<tr>
+<td align="left">n&lt; space&gt;</td>
+<td>那个 n 表示『数字』，例如 20 。按下数字后再按空格键，光标会向右移动这一行的 n 个字符。</td>
+</tr>
+<tr>
+<td align="left">0 或功能键[Home]</td>
+<td>这是数字『 0 』：移动到这一行的最前面字符处 (常用)</td>
+</tr>
+<tr>
+<td align="left">$ 或功能键[End]</td>
+<td>移动到这一行的最后面字符处(常用)</td>
+</tr>
+<tr>
+<td align="left">H</td>
+<td>光标移动到这个屏幕的最上方那一行的第一个字符</td>
+</tr>
+<tr>
+<td align="left">M</td>
+<td>光标移动到这个屏幕的中央那一行的第一个字符</td>
+</tr>
+<tr>
+<td align="left">L</td>
+<td>光标移动到这个屏幕的最下方那一行的第一个字符</td>
+</tr>
+<tr>
+<td align="left">G</td>
+<td>移动到这个档案的最后一行(常用)</td>
+</tr>
+<tr>
+<td align="left">nG</td>
+<td>n 为数字。移动到这个档案的第 n 行。例如 20G 则会移动到这个档案的第 20 行(可配合 :set nu)</td>
+</tr>
+<tr>
+<td align="left">gg</td>
+<td>移动到这个档案的第一行，相当于 1G 啊！(常用)</td>
+</tr>
+<tr>
+<td align="left">n&lt; Enter&gt;</td>
+<td>n 为数字。光标向下移动 n 行(常用)</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">搜索替换</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">/word</td>
+<td>向光标之下寻找一个名称为 word 的字符串。例如要在档案内搜寻 vbird 这个字符串，就输入 /vbird 即可！(常用)</td>
+</tr>
+<tr>
+<td align="left">?word</td>
+<td>向光标之上寻找一个字符串名称为 word 的字符串。</td>
+</tr>
+<tr>
+<td align="left">n</td>
+<td>这个 n 是英文按键。代表重复前一个搜寻的动作。举例来说， 如果刚刚我们执行 /vbird 去向下搜寻 vbird 这个字符串，则按下 n 后，会向下继续搜寻下一个名称为 vbird 的字符串。如果是执行 ?vbird 的话，那么按下 n 则会向上继续搜寻名称为 vbird 的字符串！</td>
+</tr>
+<tr>
+<td align="left">N</td>
+<td>这个 N 是英文按键。与 n 刚好相反，为『反向』进行前一个搜寻动作。例如 /vbird 后，按下 N 则表示『向上』搜寻 vbird 。</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">删除、复制与粘贴</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">x, X</td>
+<td>在一行字当中，x 为向后删除一个字符 (相当于 [del] 按键)， X 为向前删除一个字符(相当于 [backspace] 亦即是退格键) (常用)</td>
+</tr>
+<tr>
+<td align="left">nx</td>
+<td>n 为数字，连续向后删除 n 个字符。举例来说，我要连续删除 10 个字符， 『10x』。</td>
+</tr>
+<tr>
+<td align="left">dd</td>
+<td>删除游标所在的那一整行(常用)</td>
+</tr>
+<tr>
+<td align="left">ndd</td>
+<td>n 为数字。删除光标所在的向下 n 行，例如 20dd 则是删除 20 行 (常用)</td>
+</tr>
+<tr>
+<td align="left">d1G</td>
+<td>删除光标所在到第一行的所有数据</td>
+</tr>
+<tr>
+<td align="left">dG</td>
+<td>删除光标所在到最后一行的所有数据</td>
+</tr>
+<tr>
+<td align="left">d$</td>
+<td>删除游标所在处，到该行的最后一个字符</td>
+</tr>
+<tr>
+<td align="left">d0</td>
+<td>那个是数字的 0 ，删除游标所在处，到该行的最前面一个字符</td>
+</tr>
+<tr>
+<td align="left">yy</td>
+<td>复制游标所在的那一行(常用)</td>
+</tr>
+<tr>
+<td align="left">nyy</td>
+<td>n 为数字。复制光标所在的向下 n 行，例如 20yy 则是复制 20 行(常用)</td>
+</tr>
+<tr>
+<td align="left">y1G</td>
+<td>复制游标所在行到第一行的所有数据</td>
+</tr>
+<tr>
+<td align="left">yG</td>
+<td>复制游标所在行到最后一行的所有数据</td>
+</tr>
+<tr>
+<td align="left">y0</td>
+<td>复制光标所在的那个字符到该行行首的所有数据</td>
+</tr>
+<tr>
+<td align="left">y$</td>
+<td>复制光标所在的那个字符到该行行尾的所有数据</td>
+</tr>
+<tr>
+<td align="left">p, P</td>
+<td>p 为将已复制的数据在光标下一行贴上，P 则为贴在游标上一行！举例来说，我目前光标在第 20 行，且已经复制了 10 行数据。则按下 p 后， 那 10 行数据会贴在原本的 20 行之后，亦即由 21 行开始贴。但如果是按下 P 呢？那么原本的第 20 行会被推到变成 30 行。(常用)</td>
+</tr>
+<tr>
+<td align="left">J</td>
+<td>将光标所在行与下一行的数据结合成同一行</td>
+</tr>
+<tr>
+<td align="left">c</td>
+<td>重复删除多个数据，例如向下删除 10 行，[ 10cj ]</td>
+</tr>
+<tr>
+<td align="left">u</td>
+<td>复原前一个动作。(常用)</td>
+</tr>
+<tr>
+<td align="left">[Ctrl]+r</td>
+<td>重做上一个动作。(常用)</td>
+</tr>
+</tbody></table>
+<p><strong>第二部分：一般模式切换到编辑模式的可用的按钮说明</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">进入输入或取代的编辑模式</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">i, I</td>
+<td>进入输入模式(Insert mode)：i 为『从目前光标所在处输入』， I 为『在目前所在行的第一个非空格符处开始输入』。(常用)</td>
+</tr>
+<tr>
+<td align="left">a, A</td>
+<td>进入输入模式(Insert mode)：a 为『从目前光标所在的下一个字符处开始输入』， A 为『从光标所在行的最后一个字符处开始输入』。(常用)</td>
+</tr>
+<tr>
+<td align="left">o, O</td>
+<td>进入输入模式(Insert mode)：这是英文字母 o 的大小写。o 为『在目前光标所在的下一行处输入新的一行』；O 为在目前光标所在处的上一行输入新的一行！(常用)</td>
+</tr>
+<tr>
+<td align="left">r, R</td>
+<td>进入取代模式(Replace mode)：r 只会取代光标所在的那一个字符一次；R会一直取代光标所在的文字，直到按下 ESC 为止；(常用)</td>
+</tr>
+<tr>
+<td align="left">[Esc]</td>
+<td>退出编辑模式，回到一般模式中(常用)</td>
+</tr>
+</tbody></table>
+<p><strong>第三部分：一般模式切换到指令行模式的可用的按钮说明</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">指令行的储存、离开等指令</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">:w</td>
+<td>将编辑的数据写入硬盘档案中(常用)</td>
+</tr>
+<tr>
+<td align="left">:w!</td>
+<td>若文件属性为『只读』时，强制写入该档案。不过，到底能不能写入， 还是跟你对该档案的档案权限有关啊！</td>
+</tr>
+<tr>
+<td align="left">:q</td>
+<td>离开 vi (常用)</td>
+</tr>
+<tr>
+<td align="left">:q!</td>
+<td>若曾修改过档案，又不想储存，使用 ! 为强制离开不储存档案。</td>
+</tr>
+<tr>
+<td align="left">注意一下啊，那个惊叹号 (!) 在 vi 当中，常常具有『强制』的意思～</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">:wq</td>
+<td>储存后离开，若为 :wq! 则为强制储存后离开 (常用)</td>
+</tr>
+<tr>
+<td align="left">ZZ</td>
+<td>这是大写的 Z 喔！若档案没有更动，则不储存离开，若档案已经被更动过，则储存后离开！</td>
+</tr>
+<tr>
+<td align="left">:w [filename]</td>
+<td>将编辑的数据储存成另一个档案（类似另存新档）</td>
+</tr>
+<tr>
+<td align="left">:r [filename]</td>
+<td>在编辑的数据中，读入另一个档案的数据。亦即将 『filename』 这个档案内容加到游标所在行后面</td>
+</tr>
+<tr>
+<td align="left">:n1,n2 w [filename]</td>
+<td>将 n1 到 n2 的内容储存成 filename 这个档案。</td>
+</tr>
+<tr>
+<td align="left">:! command</td>
+<td>暂时离开 vi 到指令行模式下执行 command 的显示结果！例如 『:! ls /home』即可在 vi 当中看 /home 底下以 ls 输出的档案信息！</td>
+</tr>
+<tr>
+<td align="left">:set nu</td>
+<td>显示行号，设定之后，会在每一行的前缀显示该行的行号</td>
+</tr>
+<tr>
+<td align="left">:set nonu</td>
+<td>与 set nu 相反，为取消行号！</td>
+</tr>
+</tbody></table>
+<h1 id="账号管理"><a href="#账号管理" class="headerlink" title="账号管理"></a>账号管理</h1><blockquote>
+<p>简介</p>
+</blockquote>
+<p>Linux系统是一个多用户多任务的分时操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统。</p>
+<p>用户的账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问；另一方面也可以帮助用户组织文件，并为用户提供安全性保护。</p>
+<p>每个用户账号都拥有一个唯一的用户名和各自的口令。</p>
+<p>用户在登录时键入正确的用户名和口令后，就能够进入系统和自己的主目录。</p>
+<p>实现用户账号的管理，要完成的工作主要有如下几个方面：</p>
+<ul>
+<li>用户账号的添加、删除与修改。</li>
+<li>用户口令的管理。</li>
+<li>用户组的管理。</li>
+</ul>
+<blockquote>
+<p>用户账号的管理</p>
+</blockquote>
+<p>用户账号的管理工作主要涉及到用户账号的添加、修改和删除。</p>
+<p>添加用户账号就是在系统中创建一个新账号，然后为新账号分配用户号、用户组、主目录和登录Shell等资源。</p>
+<blockquote>
+<p>添加账号 useradd</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd 选项 用户名</span><br></pre></td></tr></table></figure>
+
+<p>参数说明：</p>
+<ul>
+<li><p>选项 :</p>
+</li>
+<li><ul>
+<li>-c comment 指定一段注释性描述。</li>
+<li>-d 目录 指定用户主目录，如果此目录不存在，则同时使用-m选项，可以创建主目录。</li>
+<li>-g 用户组 指定用户所属的用户组。</li>
+<li>-G 用户组，用户组 指定用户所属的附加组。</li>
+<li>-m　使用者目录如不存在则自动建立。</li>
+<li>-s Shell文件 指定用户的登录Shell。</li>
+<li>-u 用户号 指定用户的用户号，如果同时有-o选项，则可以重复使用其他用户的标识号。</li>
+</ul>
+</li>
+<li><p>用户名 :</p>
+</li>
+<li><ul>
+<li>指定新账号的登录名。</li>
+</ul>
+</li>
+</ul>
+<p>测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 此命令创建了一个用户kuangshen，其中-m选项用来为登录名kuangshen产生一个主目录 /home/kuangshen</span><br><span class="line">[root@kuangshen home]# useradd -m kuangshen</span><br></pre></td></tr></table></figure>
+
+<p>增加用户账号就是在/etc/passwd文件中为新用户增加一条记录，同时更新其他系统文件如/etc/shadow, /etc/group等。</p>
+<blockquote>
+<p>Linux下如何切换用户</p>
+</blockquote>
+<p>1.切换用户的命令为：su username 【username是你的用户名哦】</p>
+<p>2.从普通用户切换到root用户，还可以使用命令：sudo su</p>
+<p>3.在终端输入exit或logout或使用快捷方式ctrl+d，可以退回到原来用户，其实ctrl+d也是执行的exit命令</p>
+<p>4.在切换用户时，如果想在切换用户之后使用新用户的工作环境，可以在su和username之间加-，例如：【su - root】</p>
+<p>$表示普通用户</p>
+<p>#表示超级用户，也就是root用户</p>
+<blockquote>
+<p>删除帐号</p>
+</blockquote>
+<p>如果一个用户的账号不再使用，可以从系统中删除。</p>
+<p>删除用户账号就是要将/etc/passwd等系统文件中的该用户记录删除，必要时还删除用户的主目录。</p>
+<p>删除一个已有的用户账号使用userdel命令，其格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">userdel 选项 用户名</span><br></pre></td></tr></table></figure>
+
+<p>常用的选项是 <strong>-r</strong>，它的作用是把用户的主目录一起删除。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@kuangshen home]# userdel -r kuangshen</span><br></pre></td></tr></table></figure>
+
+<p>此命令删除用户kuangshen在系统文件中（主要是/etc/passwd, /etc/shadow, /etc/group等）的记录，同时删除用户的主目录。</p>
+<blockquote>
+<p>修改帐号</p>
+</blockquote>
+<p>修改用户账号就是根据实际情况更改用户的有关属性，如用户号、主目录、用户组、登录Shell等。</p>
+<p>修改已有用户的信息使用usermod命令，其格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod 选项 用户名</span><br></pre></td></tr></table></figure>
+
+<p>常用的选项包括-c, -d, -m, -g, -G, -s, -u以及-o等，这些选项的意义与useradd命令中的选项一样，可以为用户指定新的资源值。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># usermod -s /bin/ksh -d /home/z –g developer kuangshen</span><br></pre></td></tr></table></figure>
+
+<p>此命令将用户kuangshen的登录Shell修改为ksh，主目录改为/home/z，用户组改为developer。</p>
+<blockquote>
+<p>用户口令的管理</p>
+</blockquote>
+<p>用户管理的一项重要内容是用户口令的管理。用户账号刚创建时没有口令，但是被系统锁定，无法使用，必须为其指定口令后才可以使用，即使是指定空口令。</p>
+<p>指定和修改用户口令的Shell命令是passwd。超级用户可以为自己和其他用户指定口令，普通用户只能用它修改自己的口令。</p>
+<p>命令的格式为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd 选项 用户名</span><br></pre></td></tr></table></figure>
+
+<p>可使用的选项：</p>
+<ul>
+<li>-l 锁定口令，即禁用账号。</li>
+<li>-u 口令解锁。</li>
+<li>-d 使账号无口令。</li>
+<li>-f 强迫用户下次登录时修改口令。</li>
+</ul>
+<p>如果默认用户名，则修改当前用户的口令。</p>
+<p>例如，假设当前用户是kuangshen，则下面的命令修改该用户自己的口令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ passwd</span><br><span class="line">Old password:******</span><br><span class="line">New password:*******</span><br><span class="line">Re-enter new password:*******</span><br></pre></td></tr></table></figure>
+
+<p>如果是超级用户，可以用下列形式指定任何用户的口令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># passwd kuangshen</span><br><span class="line">New password:*******</span><br><span class="line">Re-enter new password:*******</span><br></pre></td></tr></table></figure>
+
+<p>普通用户修改自己的口令时，passwd命令会先询问原口令，验证后再要求用户输入两遍新口令，如果两次输入的口令一致，则将这个口令指定给用户；而超级用户为用户指定口令时，就不需要知道原口令。</p>
+<p>为了系统安全起见，用户应该选择比较复杂的口令，例如最好使用8位长的口令，口令中包含有大写、小写字母和数字，并且应该与姓名、生日等不相同。</p>
+<p>为用户指定空口令时，执行下列形式的命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># passwd -d kuangshen</span><br></pre></td></tr></table></figure>
+
+<p>此命令将用户 kuangshen的口令删除，这样用户 kuangshen下一次登录时，系统就不再允许该用户登录了。</p>
+<p>passwd 命令还可以用 -l(lock) 选项锁定某一用户，使其不能登录，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># passwd -l kuangshen</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="用户组管理"><a href="#用户组管理" class="headerlink" title="用户组管理"></a>用户组管理</h2><p>每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理。不同Linux 系统对用户组的规定有所不同，如Linux下的用户属于与它同名的用户组，这个用户组在创建用户时同时创建。</p>
+<p>用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对/etc/group文件的更新。</p>
+<blockquote>
+<p>增加一个新的用户组使用groupadd命令</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd 选项 用户组</span><br></pre></td></tr></table></figure>
+
+<p>可以使用的选项有：</p>
+<ul>
+<li>-g GID 指定新用户组的组标识号（GID）。</li>
+<li>-o 一般与-g选项同时使用，表示新用户组的GID可以与系统已有用户组的GID相同。</li>
+</ul>
+<p>实例1：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># groupadd group1</span><br></pre></td></tr></table></figure>
+
+<p>此命令向系统中增加了一个新组group1，新组的组标识号是在当前已有的最大组标识号的基础上加1。</p>
+<p>实例2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># groupadd -g 101 group2</span><br></pre></td></tr></table></figure>
+
+<p>此命令向系统中增加了一个新组group2，同时指定新组的组标识号是101。</p>
+<blockquote>
+<p>如果要删除一个已有的用户组，使用groupdel命令</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupdel 用户组</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># groupdel group1</span><br></pre></td></tr></table></figure>
+
+<p>此命令从系统中删除组group1。</p>
+<blockquote>
+<p>修改用户组的属性使用groupmod命令</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupmod 选项 用户组</span><br></pre></td></tr></table></figure>
+
+<p>常用的选项有：</p>
+<ul>
+<li>-g GID 为用户组指定新的组标识号。</li>
+<li>-o 与-g选项同时使用，用户组的新GID可以与系统已有用户组的GID相同。</li>
+<li>-n新用户组 将用户组的名字改为新名字</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 此命令将组group2的组标识号修改为102。</span><br><span class="line">groupmod -g 102 group2</span><br><span class="line"></span><br><span class="line"># 将组group2的标识号改为10000，组名修改为group3。</span><br><span class="line">groupmod –g 10000 -n group3 group2</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>切换组</p>
+</blockquote>
+<p>如果一个用户同时属于多个用户组，那么用户可以在用户组之间切换，以便具有其他用户组的权限。</p>
+<p>用户可以在登录后，使用命令newgrp切换到其他用户组，这个命令的参数就是目的用户组。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ newgrp root</span><br></pre></td></tr></table></figure>
+
+<p>这条命令将当前用户切换到root用户组，前提条件是root用户组确实是该用户的主组或附加组。</p>
+<blockquote>
+<p>/etc/passwd</p>
+</blockquote>
+<p>完成用户管理的工作有许多种方法，但是每一种方法实际上都是对有关的系统文件进行修改。</p>
+<p>与用户和用户组相关的信息都存放在一些系统文件中，这些文件包括/etc/passwd, /etc/shadow, /etc/group等。</p>
+<p>下面分别介绍这些文件的内容。</p>
+<p><strong>/etc/passwd文件是用户管理工作涉及的最重要的一个文件。</strong></p>
+<p>Linux系统中的每个用户都在/etc/passwd文件中有一个对应的记录行，它记录了这个用户的一些基本属性。</p>
+<p>这个文件对所有用户都是可读的。它的内容类似下面的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">＃ cat /etc/passwd</span><br><span class="line"></span><br><span class="line">root:x:0:0:Superuser:/:</span><br><span class="line">daemon:x:1:1:System daemons:/etc:</span><br><span class="line">bin:x:2:2:Owner of system commands:/bin:</span><br><span class="line">sys:x:3:3:Owner of system files:/usr/sys:</span><br><span class="line">adm:x:4:4:System accounting:/usr/adm:</span><br><span class="line">uucp:x:5:5:UUCP administrator:/usr/lib/uucp:</span><br><span class="line">auth:x:7:21:Authentication administrator:/tcb/files/auth:</span><br><span class="line">cron:x:9:16:Cron daemon:/usr/spool/cron:</span><br><span class="line">listen:x:37:4:Network daemon:/usr/net/nls:</span><br><span class="line">lp:x:71:18:Printer administrator:/usr/spool/lp:</span><br></pre></td></tr></table></figure>
+
+<p>从上面的例子我们可以看到，/etc/passwd中一行记录对应着一个用户，每行记录又被冒号(:)分隔为7个字段，其格式和具体含义如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户名:口令:用户标识号:组标识号:注释性描述:主目录:登录Shell</span><br></pre></td></tr></table></figure>
+
+<p>1）”用户名”是代表用户账号的字符串。</p>
+<p>通常长度不超过8个字符，并且由大小写字母和/或数字组成。登录名中不能有冒号(:)，因为冒号在这里是分隔符。</p>
+<p>为了兼容起见，登录名中最好不要包含点字符(.)，并且不使用连字符(-)和加号(+)打头。</p>
+<p>2）“口令”一些系统中，存放着加密后的用户口令字。</p>
+<p>虽然这个字段存放的只是用户口令的加密串，不是明文，但是由于/etc/passwd文件对所有用户都可读，所以这仍是一个安全隐患。因此，现在许多Linux 系统（如SVR4）都使用了shadow技术，把真正的加密后的用户口令字存放到/etc/shadow文件中，而在/etc/passwd文件的口令字段中只存放一个特殊的字符，例如“x”或者“*”。</p>
+<p>3）“用户标识号”是一个整数，系统内部用它来标识用户。</p>
+<p>一般情况下它与用户名是一一对应的。如果几个用户名对应的用户标识号是一样的，系统内部将把它们视为同一个用户，但是它们可以有不同的口令、不同的主目录以及不同的登录Shell等。</p>
+<p>通常用户标识号的取值范围是0～65 535。0是超级用户root的标识号，1～99由系统保留，作为管理账号，普通用户的标识号从100开始。在Linux系统中，这个界限是500。</p>
+<p>4）“组标识号”字段记录的是用户所属的用户组。</p>
+<p>它对应着/etc/group文件中的一条记录。</p>
+<p>5)“注释性描述”字段记录着用户的一些个人情况。</p>
+<p>例如用户的真实姓名、电话、地址等，这个字段并没有什么实际的用途。在不同的Linux 系统中，这个字段的格式并没有统一。在许多Linux系统中，这个字段存放的是一段任意的注释性描述文字，用作finger命令的输出。</p>
+<p>6)“主目录”，也就是用户的起始工作目录。</p>
+<p>它是用户在登录到系统之后所处的目录。在大多数系统中，各用户的主目录都被组织在同一个特定的目录下，而用户主目录的名称就是该用户的登录名。各用户对自己的主目录有读、写、执行（搜索）权限，其他用户对此目录的访问权限则根据具体情况设置。</p>
+<p>7)用户登录后，要启动一个进程，负责将用户的操作传给内核，这个进程是用户登录到系统后运行的命令解释器或某个特定的程序，即Shell。</p>
+<p>Shell是用户与Linux系统之间的接口。Linux的Shell有许多种，每种都有不同的特点。常用的有sh(Bourne Shell), csh(C Shell), ksh(Korn Shell), tcsh(TENEX/TOPS-20 type C Shell), bash(Bourne Again Shell)等。</p>
+<p>系统管理员可以根据系统情况和用户习惯为用户指定某个Shell。如果不指定Shell，那么系统使用sh为默认的登录Shell，即这个字段的值为/bin/sh。</p>
+<p>用户的登录Shell也可以指定为某个特定的程序（此程序不是一个命令解释器）。</p>
+<p>利用这一特点，我们可以限制用户只能运行指定的应用程序，在该应用程序运行结束后，用户就自动退出了系统。有些Linux 系统要求只有那些在系统中登记了的程序才能出现在这个字段中。</p>
+<p>8)系统中有一类用户称为伪用户（pseudo users）。</p>
+<p>这些用户在/etc/passwd文件中也占有一条记录，但是不能登录，因为它们的登录Shell为空。它们的存在主要是方便系统管理，满足相应的系统进程对文件属主的要求。</p>
+<p>常见的伪用户如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">伪 用 户 含 义</span><br><span class="line">bin 拥有可执行的用户命令文件</span><br><span class="line">sys 拥有系统文件</span><br><span class="line">adm 拥有帐户文件</span><br><span class="line">uucp UUCP使用</span><br><span class="line">lp lp或lpd子系统使用</span><br><span class="line">nobody NFS使用</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>/etc/shadow</p>
+</blockquote>
+<p><strong>1、除了上面列出的伪用户外，还有许多标准的伪用户，例如：audit, cron, mail, usenet等，它们也都各自为相关的进程和文件所需要。</strong></p>
+<p>由于/etc/passwd文件是所有用户都可读的，如果用户的密码太简单或规律比较明显的话，一台普通的计算机就能够很容易地将它破解，因此对安全性要求较高的Linux系统都把加密后的口令字分离出来，单独存放在一个文件中，这个文件是/etc/shadow文件。有超级用户才拥有该文件读权限，这就保证了用户密码的安全性。</p>
+<p><strong>2、/etc/shadow中的记录行与/etc/passwd中的一一对应，它由pwconv命令根据/etc/passwd中的数据自动产生</strong></p>
+<p>它的文件格式与/etc/passwd类似，由若干个字段组成，字段之间用”:”隔开。这些字段是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">登录名:加密口令:最后一次修改时间:最小时间间隔:最大时间间隔:警告时间:不活动时间:失效时间:标志</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>“登录名”是与/etc/passwd文件中的登录名相一致的用户账号</li>
+<li>“口令”字段存放的是加密后的用户口令字，长度为13个字符。如果为空，则对应用户没有口令，登录时不需要口令；如果含有不属于集合 { ./0-9A-Za-z }中的字符，则对应的用户不能登录。</li>
+<li>“最后一次修改时间”表示的是从某个时刻起，到用户最后一次修改口令时的天数。时间起点对不同的系统可能不一样。例如在SCO Linux 中，这个时间起点是1970年1月1日。</li>
+<li>“最小时间间隔”指的是两次修改口令之间所需的最小天数。</li>
+<li>“最大时间间隔”指的是口令保持有效的最大天数。</li>
+<li>“警告时间”字段表示的是从系统开始警告用户到用户密码正式失效之间的天数。</li>
+<li>“不活动时间”表示的是用户没有登录活动但账号仍能保持有效的最大天数。</li>
+<li>“失效时间”字段给出的是一个绝对的天数，如果使用了这个字段，那么就给出相应账号的生存期。期满后，该账号就不再是一个合法的账号，也就不能再用来登录了。</li>
+</ol>
+<blockquote>
+<p>/etc/group</p>
+</blockquote>
+<p>用户组的所有信息都存放在/etc/group文件中。</p>
+<p>将用户分组是Linux 系统中对用户进行管理及控制访问权限的一种手段。</p>
+<p>每个用户都属于某个用户组；一个组中可以有多个用户，一个用户也可以属于不同的组。</p>
+<p>当一个用户同时是多个组中的成员时，在/etc/passwd文件中记录的是用户所属的主组，也就是登录时所属的默认组，而其他组称为附加组。</p>
+<p>用户要访问属于附加组的文件时，必须首先使用newgrp命令使自己成为所要访问的组中的成员。</p>
+<p>用户组的所有信息都存放在/etc/group文件中。此文件的格式也类似于/etc/passwd文件，由冒号(:)隔开若干个字段，这些字段有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">组名:口令:组标识号:组内用户列表</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>“组名”是用户组的名称，由字母或数字构成。与/etc/passwd中的登录名一样，组名不应重复。</p>
+</li>
+<li><p>“口令”字段存放的是用户组加密后的口令字。一般Linux 系统的用户组都没有口令，即这个字段一般为空，或者是*。</p>
+</li>
+<li><p>“组标识号”与用户标识号类似，也是一个整数，被系统内部用来标识组。</p>
+</li>
+<li><p>“组内用户列表”是属于这个组的所有用户的列表/b]，不同用户之间用逗号(,)分隔。这个用户组可能是用户的主组，也可能是附加组。</p>
+</li>
+</ol>
+<h1 id="磁盘管理"><a href="#磁盘管理" class="headerlink" title="磁盘管理"></a>磁盘管理</h1><blockquote>
+<p>概述</p>
+</blockquote>
+<p>Linux磁盘管理好坏直接关系到整个系统的性能问题。</p>
+<p>Linux磁盘管理常用命令为 df、du。</p>
+<ul>
+<li>df ：列出文件系统的整体磁盘使用量</li>
+<li>du：检查磁盘空间使用量</li>
+</ul>
+<blockquote>
+<p>df</p>
+</blockquote>
+<p>df命令参数功能：检查文件系统的磁盘空间占用情况。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。</p>
+<p>语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df [-ahikHTm] [目录或文件名]</span><br></pre></td></tr></table></figure>
+
+<p>选项与参数：</p>
+<ul>
+<li>-a ：列出所有的文件系统，包括系统特有的 /proc 等文件系统；</li>
+<li>-k ：以 KBytes 的容量显示各文件系统；</li>
+<li>-m ：以 MBytes 的容量显示各文件系统；</li>
+<li>-h ：以人们较易阅读的 GBytes, MBytes, KBytes 等格式自行显示；</li>
+<li>-H ：以 M=1000K 取代 M=1024K 的进位方式；</li>
+<li>-T ：显示文件系统类型, 连同该 partition 的 filesystem 名称 (例如 ext3) 也列出；</li>
+<li>-i ：不用硬盘容量，而以 inode 的数量来显示</li>
+</ul>
+<p>测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"># 将系统内所有的文件系统列出来！</span><br><span class="line"># 在 Linux 底下如果 df 没有加任何选项</span><br><span class="line"># 那么默认会将系统内所有的 (不含特殊内存内的文件系统与 swap) 都以 1 Kbytes 的容量来列出来！</span><br><span class="line">[root@kuangshen /]# df</span><br><span class="line">Filesystem     1K-blocks   Used Available Use% Mounted on</span><br><span class="line">devtmpfs          889100       0    889100   0% /dev</span><br><span class="line">tmpfs             899460     704    898756   1% /dev/shm</span><br><span class="line">tmpfs             899460     496    898964   1% /run</span><br><span class="line">tmpfs             899460       0    899460   0% /sys/fs/cgroup</span><br><span class="line">/dev/vda1       41152812 6586736  32662368  17% /</span><br><span class="line">tmpfs             179896       0    179896   0% /run/user/0</span><br><span class="line"># 将容量结果以易读的容量格式显示出来</span><br><span class="line">[root@kuangshen /]# df -h</span><br><span class="line">Filesystem     Size Used Avail Use% Mounted on</span><br><span class="line">devtmpfs       869M     0 869M   0% /dev</span><br><span class="line">tmpfs           879M 708K 878M   1% /dev/shm</span><br><span class="line">tmpfs           879M 496K 878M   1% /run</span><br><span class="line">tmpfs           879M     0 879M   0% /sys/fs/cgroup</span><br><span class="line">/dev/vda1       40G  6.3G   32G  17% /</span><br><span class="line">tmpfs           176M     0 176M   0% /run/user/0</span><br><span class="line"># 将系统内的所有特殊文件格式及名称都列出来</span><br><span class="line">[root@kuangshen /]# df -aT</span><br><span class="line">Filesystem     Type       1K-blocks   Used Available Use% Mounted on</span><br><span class="line">sysfs         sysfs               0       0         0    - /sys</span><br><span class="line">proc           proc                0       0         0    - /proc</span><br><span class="line">devtmpfs       devtmpfs       889100       0    889100   0% /dev</span><br><span class="line">securityfs     securityfs          0       0         0    - /sys/kernel/security</span><br><span class="line">tmpfs         tmpfs          899460     708    898752   1% /dev/shm</span><br><span class="line">devpts         devpts              0       0         0    - /dev/pts</span><br><span class="line">tmpfs         tmpfs          899460     496    898964   1% /run</span><br><span class="line">tmpfs         tmpfs          899460       0    899460   0% /sys/fs/cgroup</span><br><span class="line">cgroup         cgroup              0       0         0    - /sys/fs/cgroup/systemd</span><br><span class="line">pstore         pstore              0       0         0    - /sys/fs/pstore</span><br><span class="line">cgroup         cgroup              0       0         0    - /sys/fs/cgroup/freezer</span><br><span class="line">cgroup         cgroup              0       0         0    - /sys/fs/cgroup/cpuset</span><br><span class="line">cgroup         cgroup              0       0         0    - /sys/fs/cgroup/hugetlb</span><br><span class="line">cgroup         cgroup              0       0         0    - /sys/fs/cgroup/blkio</span><br><span class="line">cgroup         cgroup              0       0         0    - /sys/fs/cgroup/net_cls,net_prio</span><br><span class="line">cgroup         cgroup              0       0         0    - /sys/fs/cgroup/memory</span><br><span class="line">cgroup         cgroup              0       0         0    - /sys/fs/cgroup/pids</span><br><span class="line">cgroup         cgroup              0       0         0    - /sys/fs/cgroup/cpu,cpuacct</span><br><span class="line">cgroup         cgroup              0       0         0    - /sys/fs/cgroup/devices</span><br><span class="line">cgroup         cgroup              0       0         0    - /sys/fs/cgroup/perf_event</span><br><span class="line">configfs       configfs            0       0         0    - /sys/kernel/config</span><br><span class="line">/dev/vda1     ext4         41152812 6586748  32662356  17% /</span><br><span class="line">systemd-1      -                   -       -         -    - /proc/sys/fs/binfmt_misc</span><br><span class="line">mqueue         mqueue              0       0         0    - /dev/mqueue</span><br><span class="line">debugfs       debugfs             0       0         0    - /sys/kernel/debug</span><br><span class="line">hugetlbfs     hugetlbfs           0       0         0    - /dev/hugepages</span><br><span class="line">tmpfs         tmpfs          179896       0    179896   0% /run/user/0</span><br><span class="line">binfmt_misc   binfmt_misc         0       0         0    - /proc/sys/fs/binfmt_misc</span><br><span class="line"># 将 /etc 底下的可用的磁盘容量以易读的容量格式显示</span><br><span class="line"></span><br><span class="line">[root@kuangshen /]# df -h /etc</span><br><span class="line">Filesystem     Size Used Avail Use% Mounted on</span><br><span class="line">/dev/vda1       40G  6.3G   32G  17% /</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>du</p>
+</blockquote>
+<p>Linux du命令也是查看使用空间的，但是与df命令不同的是Linux du命令是对文件和目录磁盘使用的空间的查看，还是和df命令有一些区别的，这里介绍Linux du命令。</p>
+<p>语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du [-ahskm] 文件或目录名称</span><br></pre></td></tr></table></figure>
+
+<p>选项与参数：</p>
+<ul>
+<li>-a ：列出所有的文件与目录容量，因为默认仅统计目录底下的文件量而已。</li>
+<li>-h ：以人们较易读的容量格式 (G/M) 显示；</li>
+<li>-s ：列出总量而已，而不列出每个各别的目录占用容量；</li>
+<li>-S ：不包括子目录下的总计，与 -s 有点差别。</li>
+<li>-k ：以 KBytes 列出容量显示；</li>
+<li>-m ：以 MBytes 列出容量显示；</li>
+</ul>
+<p>测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 只列出当前目录下的所有文件夹容量（包括隐藏文件夹）:</span><br><span class="line"># 直接输入 du 没有加任何选项时，则 du 会分析当前所在目录的文件与目录所占用的硬盘空间。</span><br><span class="line">[root@kuangshen home]# du</span><br><span class="line">16./redis</span><br><span class="line">8./www/.oracle_jre_usage  # 包括隐藏文件的目录</span><br><span class="line">24./www</span><br><span class="line">48.                        # 这个目录(.)所占用的总量</span><br><span class="line"># 将文件的容量也列出来</span><br><span class="line">[root@kuangshen home]# du -a</span><br><span class="line">4./redis/.bash_profile</span><br><span class="line">4./redis/.bash_logout    </span><br><span class="line">....中间省略....</span><br><span class="line">4./kuangstudy.txt # 有文件的列表了</span><br><span class="line">48.</span><br><span class="line"># 检查根目录底下每个目录所占用的容量</span><br><span class="line">[root@kuangshen home]# du -sm /*</span><br><span class="line">0/bin</span><br><span class="line">146/boot</span><br><span class="line">.....中间省略....</span><br><span class="line">0/proc</span><br><span class="line">.....中间省略....</span><br><span class="line">1/tmp</span><br><span class="line">3026/usr  # 系统初期最大就是他了啦！</span><br><span class="line">513/var</span><br><span class="line">2666/www</span><br></pre></td></tr></table></figure>
+
+<p>通配符 * 来代表每个目录。</p>
+<p>与 df 不一样的是，du 这个命令其实会直接到文件系统内去搜寻所有的文件数据。</p>
+<blockquote>
+<p>磁盘挂载与卸除</p>
+</blockquote>
+<p>根文件系统之外的其他文件要想能够被访问，都必须通过“关联”至根文件系统上的某个目录来实现，此关联操作即为“挂载”，此目录即为“挂载点”,解除此关联关系的过程称之为“卸载”</p>
+<p>Linux 的磁盘挂载使用mount命令，卸载使用umount命令。</p>
+<p>磁盘挂载语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount [-t 文件系统] [-L Label名] [-o 额外选项] [-n] 装置文件名 挂载点</span><br></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 将 /dev/hdc6 挂载到 /mnt/hdc6 上面！</span><br><span class="line">[root@www ~]# mkdir /mnt/hdc6</span><br><span class="line">[root@www ~]# mount /dev/hdc6 /mnt/hdc6</span><br><span class="line">[root@www ~]# df</span><br><span class="line">Filesystem           1K-blocks     Used Available Use% Mounted on</span><br><span class="line">/dev/hdc6              1976312     42072   1833836   3% /mnt/hdc6</span><br></pre></td></tr></table></figure>
+
+<p>磁盘卸载命令 umount 语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">umount [-fn] 装置文件名或挂载点</span><br></pre></td></tr></table></figure>
+
+<p>选项与参数：</p>
+<ul>
+<li>-f ：强制卸除！可用在类似网络文件系统 (NFS) 无法读取到的情况下；</li>
+<li>-n ：不升级 /etc/mtab 情况下卸除。</li>
+</ul>
+<p>卸载/dev/hdc6</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# umount /dev/hdc6</span><br></pre></td></tr></table></figure>
+
+<h3 id="jdk安装（rpm安装）"><a href="#jdk安装（rpm安装）" class="headerlink" title="jdk安装（rpm安装）"></a>jdk安装（rpm安装）</h3><p>1、rpm下载地址<a target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a></p>
+<p>2、如果有安装openjdk 则卸载</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@kuangshen ~]# java -version</span><br><span class="line">java version &quot;1.8.0_121&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_121-b13)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.121-b13, mixed mode)</span><br><span class="line"># 检查</span><br><span class="line">[root@kuangshen ~]# rpm -qa|grep jdk</span><br><span class="line">jdk1.8.0_121-1.8.0_121-fcs.x86_64</span><br><span class="line"># 卸载 -e --nodeps 强制删除</span><br><span class="line">[root@kuangshen ~]# rpm -e --nodeps jdk1.8.0_121-1.8.0_121-fcs.x86_64</span><br><span class="line">[root@kuangshen ~]# java -version</span><br><span class="line">-bash: /usr/bin/java: No such file or directory  # OK</span><br></pre></td></tr></table></figure>
+
+<p>3、安装JDK</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 安装java rpm</span><br><span class="line">[root@kuangshen kuangshen]# rpm -ivh jdk-8u221-linux-x64.rpm</span><br><span class="line"></span><br><span class="line"># 安装完成后配置环境变量 文件：/etc/profile</span><br><span class="line">JAVA_HOME=/usr/java/jdk1.8.0_221-amd64</span><br><span class="line">CLASSPATH=%JAVA_HOME%/lib:%JAVA_HOME%/jre/lib</span><br><span class="line">PATH=$PATH:$JAVA_HOME/bin:$JAVA_HOME/jre/bin</span><br><span class="line">export PATH CLASSPATH JAVA_HOME</span><br><span class="line"># 保存退出</span><br><span class="line"></span><br><span class="line"># 让新增的环境变量生效！</span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line"># 测试 java -version</span><br><span class="line">[root@kuangshen java]# java -version</span><br><span class="line">java version &quot;1.8.0_221&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_221-b11)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.221-b11, mixed mode)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Tomcat安装（解压缩安装）"><a href="#Tomcat安装（解压缩安装）" class="headerlink" title="Tomcat安装（解压缩安装）"></a>Tomcat安装（解压缩安装）</h3><p>1、安装好了Java环境后我们可以测试下Tomcat！准备好Tomcat的安装包！</p>
+<p>2、将文件移动到/usr/tomcat/下，并解压！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@kuangshen kuangshen]# mv apache-tomcat-9.0.22.tar.gz /usr</span><br><span class="line">[root@kuangshen kuangshen]# cd /usr</span><br><span class="line">[root@kuangshen usr]# ls</span><br><span class="line">apache-tomcat-9.0.22.tar.gz</span><br><span class="line">[root@kuangshen usr]# tar -zxvf apache-tomcat-9.0.22.tar.gz   # 解压</span><br></pre></td></tr></table></figure>
+
+<p>3、运行Tomcat，进入bin目录，和我们以前在Windows下看的都是一样的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 执行：startup.sh --&gt;启动tomcat</span><br><span class="line"># 执行：shutdown.sh --&gt;关闭tomcat</span><br><span class="line">./startup.sh</span><br><span class="line">./shutdown.sh</span><br></pre></td></tr></table></figure>
+
+<p>4、确保Linux的防火墙端口是开启的，如果是阿里云，需要保证阿里云的安全组策略是开放的！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># 查看firewall服务状态</span><br><span class="line">systemctl status firewalld</span><br><span class="line"></span><br><span class="line"># 开启、重启、关闭、firewalld.service服务</span><br><span class="line"># 开启</span><br><span class="line">service firewalld start</span><br><span class="line"># 重启</span><br><span class="line">service firewalld restart</span><br><span class="line"># 关闭</span><br><span class="line">service firewalld stop</span><br><span class="line"></span><br><span class="line"># 查看防火墙规则</span><br><span class="line">firewall-cmd --list-all    # 查看全部信息</span><br><span class="line">firewall-cmd --list-ports  # 只看端口信息</span><br><span class="line"></span><br><span class="line"># 开启端口</span><br><span class="line">开端口命令：firewall-cmd --zone=public --add-port=80/tcp --permanent</span><br><span class="line">重启防火墙：systemctl restart firewalld.service</span><br><span class="line"></span><br><span class="line">命令含义：</span><br><span class="line">--zone #作用域</span><br><span class="line">--add-port=80/tcp  #添加端口，格式为：端口/通讯协议</span><br><span class="line">--permanent   #永久生效，没有此参数重启后失效</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="安装Docker（yum安装）"><a href="#安装Docker（yum安装）" class="headerlink" title="安装Docker（yum安装）"></a>安装Docker（yum安装）</h3><blockquote>
+<p>基于 CentOS 7 安装</p>
+</blockquote>
+<ol>
+<li><p>官网安装参考手册：<a target="_blank" rel="noopener" href="https://docs.docker.com/install/linux/docker-ce/centos/">https://docs.docker.com/install/linux/docker-ce/centos/</a></p>
+</li>
+<li><p>确定你是CentOS7及以上版本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@192 Desktop]# cat /etc/redhat-release</span><br><span class="line">CentOS Linux release 7.2.1511 (Core)</span><br></pre></td></tr></table></figure></li>
+<li><p>yum安装gcc相关（需要确保 虚拟机可以上外网 ）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc</span><br><span class="line">yum -y install gcc-c++</span><br></pre></td></tr></table></figure></li>
+<li><p>卸载旧版本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">yum -y remove docker docker-common docker-selinux docker-engine</span><br><span class="line"># 官网版本</span><br><span class="line">yum remove docker \</span><br><span class="line">          docker-client \</span><br><span class="line">          docker-client-latest \</span><br><span class="line">          docker-common \</span><br><span class="line">          docker-latest \</span><br><span class="line">          docker-latest-logrotate \</span><br><span class="line">          docker-logrotate \</span><br><span class="line">          docker-engine</span><br></pre></td></tr></table></figure></li>
+<li><p>安装需要的软件包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure></li>
+<li><p>设置stable镜像仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 错误</span><br><span class="line">yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">## 报错</span><br><span class="line">[Errno 14] curl#35 - TCP connection reset by peer</span><br><span class="line">[Errno 12] curl#35 - Timeout</span><br><span class="line"></span><br><span class="line"># 正确推荐使用国内的</span><br><span class="line">yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure></li>
+<li><p>更新yum软件包索引</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum makecache fast</span><br></pre></td></tr></table></figure></li>
+<li><p>安装Docker CE</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure></li>
+<li><p>启动docker</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure></li>
+<li><p>测试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker version</span><br><span class="line"></span><br><span class="line">docker run hello-world</span><br><span class="line"></span><br><span class="line">docker images</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="宝塔面板安装"><a href="#宝塔面板安装" class="headerlink" title="宝塔面板安装"></a>宝塔面板安装</h3><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av91821322">https://www.bilibili.com/video/av91821322</a></p>
+<h1 id="关机-重启-注销"><a href="#关机-重启-注销" class="headerlink" title="关机/重启/注销"></a>关机/重启/注销</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>shutdown -h now</td>
+<td>即刻关机</td>
+</tr>
+<tr>
+<td>shutdown -h 10</td>
+<td>10分钟后关机</td>
+</tr>
+<tr>
+<td>shutdown -h 11:00</td>
+<td>11：00关机</td>
+</tr>
+<tr>
+<td>shutdown -h +10</td>
+<td>预定时间关机（10分钟后）</td>
+</tr>
+<tr>
+<td>shutdown -c</td>
+<td>取消指定时间关机</td>
+</tr>
+<tr>
+<td>shutdown -r now</td>
+<td>重启</td>
+</tr>
+<tr>
+<td>shutdown -r 10</td>
+<td>10分钟之后重启</td>
+</tr>
+<tr>
+<td>shutdown -r 11:00</td>
+<td>定时重启</td>
+</tr>
+<tr>
+<td>reboot</td>
+<td>重启</td>
+</tr>
+<tr>
+<td>init 6</td>
+<td>重启</td>
+</tr>
+<tr>
+<td>init 0</td>
+<td>⽴刻关机</td>
+</tr>
+<tr>
+<td>telinit 0</td>
+<td>关机</td>
+</tr>
+<tr>
+<td>poweroff</td>
+<td>⽴刻关机</td>
+</tr>
+<tr>
+<td>halt</td>
+<td>关机</td>
+</tr>
+<tr>
+<td>sync</td>
+<td>buff数据同步到磁盘</td>
+</tr>
+<tr>
+<td>logout</td>
+<td>退出登录Shell</td>
+</tr>
+</tbody></table>
+<h1 id="系统信息和性能查看"><a href="#系统信息和性能查看" class="headerlink" title="系统信息和性能查看"></a>系统信息和性能查看</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>uname -a</td>
+<td>查看内核/OS/CPU信息</td>
+</tr>
+<tr>
+<td>uname -r</td>
+<td>查看内核版本</td>
+</tr>
+<tr>
+<td>uname -m</td>
+<td>查看处理器架构</td>
+</tr>
+<tr>
+<td>arch</td>
+<td>查看处理器架构</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td>查看计算机名</td>
+</tr>
+<tr>
+<td>who</td>
+<td>显示当前登录系统的⽤户</td>
+</tr>
+<tr>
+<td>who am i</td>
+<td>显示登录时的⽤户名</td>
+</tr>
+<tr>
+<td>whoami</td>
+<td>显示当前⽤户名</td>
+</tr>
+<tr>
+<td>cat /proc/version</td>
+<td>查看linux版本信息</td>
+</tr>
+<tr>
+<td>cat /proc/cpuinfo</td>
+<td>查看CPU信息</td>
+</tr>
+<tr>
+<td>cat /proc/interrupts</td>
+<td>查看中断</td>
+</tr>
+<tr>
+<td>cat /proc/loadavg</td>
+<td>查看系统负载</td>
+</tr>
+<tr>
+<td>uptime</td>
+<td>查看系统运⾏时间、⽤户数、负载</td>
+</tr>
+<tr>
+<td>env</td>
+<td>查看系统的环境变量</td>
+</tr>
+<tr>
+<td>lsusb -tv</td>
+<td>查看系统USB设备信息</td>
+</tr>
+<tr>
+<td>lspci -tv</td>
+<td>查看系统PCI设备信息</td>
+</tr>
+<tr>
+<td>lsmod</td>
+<td>查看已加载的系统模块</td>
+</tr>
+<tr>
+<td>grep MemTotal /proc/meminfo</td>
+<td>查看内存总量</td>
+</tr>
+<tr>
+<td>grep MemFree /proc/meminfo</td>
+<td>查看空闲内存量</td>
+</tr>
+<tr>
+<td>free -m</td>
+<td>查看内存⽤量和交换区⽤量</td>
+</tr>
+<tr>
+<td>date</td>
+<td>显示系统⽇期时间</td>
+</tr>
+<tr>
+<td>cal 2021</td>
+<td>显示2021⽇历表</td>
+</tr>
+<tr>
+<td>top</td>
+<td>动态显示cpu/内存/进程等情况</td>
+</tr>
+<tr>
+<td>vmstat 1 20</td>
+<td>每1秒采⼀次系统状态，采20次</td>
+</tr>
+<tr>
+<td>iostat</td>
+<td>查看io读写/cpu使⽤情况</td>
+</tr>
+<tr>
+<td>查看io读写/cpu使⽤情况</td>
+<td>查询cpu使⽤情况（1秒⼀次，共10次）</td>
+</tr>
+<tr>
+<td>sar -d 1 10</td>
+<td>查询磁盘性能</td>
+</tr>
+</tbody></table>
+<h1 id="磁盘和分区"><a href="#磁盘和分区" class="headerlink" title="磁盘和分区"></a>磁盘和分区</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>fdisk -l</td>
+<td>查看所有磁盘分区</td>
+</tr>
+<tr>
+<td>swapon -s</td>
+<td>查看所有交换分区</td>
+</tr>
+<tr>
+<td>df -h</td>
+<td>查看磁盘使⽤情况及挂载点</td>
+</tr>
+<tr>
+<td>df -hl</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>du -sh /dir</td>
+<td>查看指定某个⽬录的⼤⼩</td>
+</tr>
+<tr>
+<td>du -sk * | sort -rn</td>
+<td>从⾼到低依次显示⽂件和⽬录⼤⼩</td>
+</tr>
+<tr>
+<td>mount /dev/hda2 /mnt/hda2</td>
+<td>挂载hda2盘</td>
+</tr>
+<tr>
+<td>mount -t ntfs /dev/sdc1 /mnt/usbhd1</td>
+<td>指定⽂件系统类型挂载（如ntfs）</td>
+</tr>
+<tr>
+<td>mount -o loop xxx.iso /mnt/cdrom</td>
+<td>挂 载 iso ⽂ 件</td>
+</tr>
+<tr>
+<td>umount -v /dev/sda1</td>
+<td>通过设备名卸载</td>
+</tr>
+<tr>
+<td>umount -v /mnt/mymnt</td>
+<td>通过挂载点卸载</td>
+</tr>
+<tr>
+<td>fuser -km /mnt/hda1</td>
+<td>强制卸载(慎⽤)</td>
+</tr>
+</tbody></table>
+<h1 id="⽤户和⽤户组"><a href="#⽤户和⽤户组" class="headerlink" title="⽤户和⽤户组"></a>⽤户和⽤户组</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>useradd codesheep</td>
+<td>创建⽤户</td>
+</tr>
+<tr>
+<td>userdel -r codesheep</td>
+<td>删除⽤户</td>
+</tr>
+<tr>
+<td>usermod -g group_name user_name</td>
+<td>修改⽤户的组</td>
+</tr>
+<tr>
+<td>usermod -aG group_name user_name</td>
+<td>将⽤户添加到组</td>
+</tr>
+<tr>
+<td>usermod -s /bin/ksh -d /home/codepig –g dev codesheep</td>
+<td>修改⽤户codesheep的登录Shell、主⽬录以及⽤户组</td>
+</tr>
+<tr>
+<td>groups test</td>
+<td>查看test⽤户所在的组</td>
+</tr>
+<tr>
+<td>groupadd group_name</td>
+<td>创建⽤户组</td>
+</tr>
+<tr>
+<td>groupdel group_name</td>
+<td>删除⽤户组</td>
+</tr>
+<tr>
+<td>groupmod -n new_name old_name</td>
+<td>重命名⽤户组</td>
+</tr>
+<tr>
+<td>su - user_name</td>
+<td>su - user_name</td>
+</tr>
+<tr>
+<td>passwd</td>
+<td>修改⼝令</td>
+</tr>
+<tr>
+<td>passwd codesheep</td>
+<td>修改某⽤户的⼝令</td>
+</tr>
+<tr>
+<td>w</td>
+<td>查看活动⽤户</td>
+</tr>
+<tr>
+<td>id codesheep</td>
+<td>查看指定⽤户codesheep信息</td>
+</tr>
+<tr>
+<td>last</td>
+<td>查看⽤户登录⽇志</td>
+</tr>
+<tr>
+<td>crontab -l</td>
+<td>查看当前⽤户的计划任务</td>
+</tr>
+<tr>
+<td>cut -d: -f1 /etc/passwd</td>
+<td>查看系统所有⽤户</td>
+</tr>
+<tr>
+<td>cut -d: -f1 /etc/group</td>
+<td>查看系统所有组</td>
+</tr>
+</tbody></table>
+<h1 id="⽹络和进程管理"><a href="#⽹络和进程管理" class="headerlink" title="⽹络和进程管理"></a>⽹络和进程管理</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ifconfig</td>
+<td>查看⽹络接⼝属性</td>
+</tr>
+<tr>
+<td>ifconfig eth0</td>
+<td>查看某⽹卡的配置</td>
+</tr>
+<tr>
+<td>route -n</td>
+<td>查看路由表</td>
+</tr>
+<tr>
+<td>netstat -lntp</td>
+<td>查看所有监听端⼝</td>
+</tr>
+<tr>
+<td>netstat -antp</td>
+<td>查看已经建⽴的TCP连接</td>
+</tr>
+<tr>
+<td>netstat -lutp</td>
+<td>查看TCP/UDP的状态信息</td>
+</tr>
+<tr>
+<td>ifup eth0</td>
+<td>启⽤eth0⽹络设备</td>
+</tr>
+<tr>
+<td>ifdown eth0</td>
+<td>禁⽤eth0⽹络设备</td>
+</tr>
+<tr>
+<td>iptables -L</td>
+<td>查看iptables规则</td>
+</tr>
+<tr>
+<td>ifconfig eth0 192.168.1.1 netmask 255.255.255.0</td>
+<td>配置ip地址</td>
+</tr>
+<tr>
+<td>dhclient eth0</td>
+<td>以dhcp模式启⽤eth0</td>
+</tr>
+<tr>
+<td>route add -net 0/0 gw Gateway_IP</td>
+<td>配置默认⽹关</td>
+</tr>
+<tr>
+<td>route add -net 192.168.0.0 netmask 255.255.0.0 gw 192.168.1.1</td>
+<td>配置静态路由到达⽹络’192.168.0.0/16’</td>
+</tr>
+<tr>
+<td>route del 0/0 gw Gateway_IP</td>
+<td>删除静态路由</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td>查看主机名</td>
+</tr>
+<tr>
+<td>host <a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a></td>
+<td>解析主机名</td>
+</tr>
+<tr>
+<td>nslookup <a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a></td>
+<td>查询DNS记录，查看域名解析是否正常</td>
+</tr>
+<tr>
+<td>ps -ef</td>
+<td>查看所有进程</td>
+</tr>
+<tr>
+<td>ps -ef | grep codesheep</td>
+<td>过滤出你需要的进程</td>
+</tr>
+<tr>
+<td>kill -s name</td>
+<td>kill指定名称的进程</td>
+</tr>
+<tr>
+<td>kill -s pid</td>
+<td>kill指定pid的进程</td>
+</tr>
+<tr>
+<td>top</td>
+<td>实时显示进程状态</td>
+</tr>
+<tr>
+<td>vmstat 1 20</td>
+<td>每1秒采⼀次系统状态，采20次</td>
+</tr>
+<tr>
+<td>iostat</td>
+<td>iostat</td>
+</tr>
+<tr>
+<td>sar -u 1 10</td>
+<td>查询cpu使⽤情况（1秒⼀次，共10次）</td>
+</tr>
+<tr>
+<td>sar -d 1 10</td>
+<td>查询磁盘性能</td>
+</tr>
+</tbody></table>
+<h1 id="常⻅系统服务命令"><a href="#常⻅系统服务命令" class="headerlink" title="常⻅系统服务命令"></a>常⻅系统服务命令</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>chkconfig –list</td>
+<td>列出系统服务</td>
+</tr>
+<tr>
+<td>service &lt;服务名&gt; status</td>
+<td>查看某个服务</td>
+</tr>
+<tr>
+<td>service &lt;服务名&gt; start</td>
+<td>启动某个服务</td>
+</tr>
+<tr>
+<td>service &lt;服务名&gt; stop</td>
+<td>终⽌某个服务</td>
+</tr>
+<tr>
+<td>service &lt;服务名&gt; restart</td>
+<td>重启某个服务</td>
+</tr>
+<tr>
+<td>systemctl status &lt;服务名&gt;</td>
+<td>查看某个服务</td>
+</tr>
+<tr>
+<td>systemctl start &lt;服务名&gt;</td>
+<td>启动某个服务</td>
+</tr>
+<tr>
+<td>systemctl stop &lt;服务名&gt;</td>
+<td>终⽌某个服务</td>
+</tr>
+<tr>
+<td>systemctl restart &lt;服务名&gt;</td>
+<td>重启某个服务</td>
+</tr>
+<tr>
+<td>systemctl enable &lt;服务名&gt;</td>
+<td>关闭⾃启动</td>
+</tr>
+<tr>
+<td>systemctl disable &lt;服务名&gt;</td>
+<td>关闭⾃启动</td>
+</tr>
+</tbody></table>
+<h1 id="⽂件和⽬录操作"><a href="#⽂件和⽬录操作" class="headerlink" title="⽂件和⽬录操作"></a>⽂件和⽬录操作</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cd &lt;⽬录名&gt;</td>
+<td>进⼊某个⽬录</td>
+</tr>
+<tr>
+<td>cd ..</td>
+<td>回上级⽬录</td>
+</tr>
+<tr>
+<td>cd ../..</td>
+<td>回上两级⽬录</td>
+</tr>
+<tr>
+<td>cd</td>
+<td>进个⼈主⽬录</td>
+</tr>
+<tr>
+<td>cd -</td>
+<td>回上⼀步所在⽬录</td>
+</tr>
+<tr>
+<td>pwd</td>
+<td>显示当前路径</td>
+</tr>
+<tr>
+<td>ls</td>
+<td>查看⽂件⽬录列表</td>
+</tr>
+<tr>
+<td>ls -F</td>
+<td>查看⽬录中内容（显示是⽂件还是⽬录）</td>
+</tr>
+<tr>
+<td>ls -l</td>
+<td>查看⽂件和⽬录的详情列表</td>
+</tr>
+<tr>
+<td>ls -a</td>
+<td>查看隐藏⽂件</td>
+</tr>
+<tr>
+<td>ls -lh</td>
+<td>查看⽂件和⽬录的详情列表（增强⽂件⼤⼩易读性）</td>
+</tr>
+<tr>
+<td>ls -lSr</td>
+<td>查看⽂件和⽬录列表（以⽂件⼤⼩升序查看）</td>
+</tr>
+<tr>
+<td>tree</td>
+<td>查看⽂件和⽬录的树形结构</td>
+</tr>
+<tr>
+<td>mkdir &lt;⽬录名&gt;</td>
+<td>创建⽬录</td>
+</tr>
+<tr>
+<td>mkdir dir1 dir2</td>
+<td>同时创建两个⽬录</td>
+</tr>
+<tr>
+<td>mkdir -p /tmp/dir1/dir2</td>
+<td>创建⽬录树</td>
+</tr>
+<tr>
+<td>rm -f file1</td>
+<td>删除’file1’⽂件</td>
+</tr>
+<tr>
+<td>rmdir dir1</td>
+<td>删除’dir1’⽬录</td>
+</tr>
+<tr>
+<td>rm -rf dir1</td>
+<td>删除’dir1’⽬录和其内容</td>
+</tr>
+<tr>
+<td>rm -rf dir1 dir2</td>
+<td>同时删除两个⽬录及其内容</td>
+</tr>
+<tr>
+<td>mv old_dir new_dir</td>
+<td>重命名/移动⽬录</td>
+</tr>
+<tr>
+<td>cp file1 file2</td>
+<td>复制⽂件</td>
+</tr>
+<tr>
+<td>cp dir/* .</td>
+<td>复制某⽬录下的所有⽂件⾄当前⽬录</td>
+</tr>
+<tr>
+<td>cp -a dir1 dir2</td>
+<td>复制⽬录</td>
+</tr>
+<tr>
+<td>cp -a /tmp/dir1 .</td>
+<td>复制⼀个⽬录⾄当前⽬录</td>
+</tr>
+<tr>
+<td>ln -s file1 link1</td>
+<td>创建指向⽂件/⽬录的软链接</td>
+</tr>
+<tr>
+<td>ln file1 lnk1</td>
+<td>创建指向⽂件/⽬录的物理链接</td>
+</tr>
+<tr>
+<td>find / -name file1</td>
+<td>从跟⽬录开始搜索⽂件/⽬录</td>
+</tr>
+<tr>
+<td>find / -user user1</td>
+<td>搜索⽤户user1的⽂件/⽬录</td>
+</tr>
+<tr>
+<td>find /dir -name *.bin</td>
+<td>在⽬录/dir中搜带有.bin后缀的⽂件</td>
+</tr>
+<tr>
+<td>locate &lt;关键词&gt;</td>
+<td>快速定位⽂件</td>
+</tr>
+<tr>
+<td>locate *.mp4</td>
+<td>寻找.mp4结尾的⽂件</td>
+</tr>
+<tr>
+<td>whereis &lt;关键词&gt;</td>
+<td>显示某⼆进制⽂件/可执⾏⽂件的路径</td>
+</tr>
+<tr>
+<td>which &lt;关键词&gt;</td>
+<td>查找系统⽬录下某的⼆进制⽂件</td>
+</tr>
+<tr>
+<td>chmod ugo+rwx dir1</td>
+<td>设置⽬录所有者(u)、群组(g)及其他⼈(o)的读（r）写(w)执⾏(x)权限</td>
+</tr>
+<tr>
+<td>chmod go-rwx dir1</td>
+<td>移除群组(g)与其他⼈(o)对⽬录的读写执⾏权限</td>
+</tr>
+<tr>
+<td>chown user1 file1</td>
+<td>改变⽂件的所有者属性</td>
+</tr>
+<tr>
+<td>chown -R user1 dir1</td>
+<td>改变⽬录的所有者属性</td>
+</tr>
+<tr>
+<td>chgrp group1 file1</td>
+<td>改变⽂件群组</td>
+</tr>
+<tr>
+<td>chown user1:group1 file1</td>
+<td>改变⽂件的所有⼈和群组</td>
+</tr>
+</tbody></table>
+<h1 id="⽂件查看和处理"><a href="#⽂件查看和处理" class="headerlink" title="⽂件查看和处理"></a>⽂件查看和处理</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cat file1</td>
+<td>查看⽂件内容</td>
+</tr>
+<tr>
+<td>cat -n file1</td>
+<td>查看内容并标示⾏数</td>
+</tr>
+<tr>
+<td>tac file1</td>
+<td>从最后⼀⾏开始反看⽂件内容</td>
+</tr>
+<tr>
+<td>more file1</td>
+<td>more file1</td>
+</tr>
+<tr>
+<td>less file1</td>
+<td>类似more命令，但允许反向操作</td>
+</tr>
+<tr>
+<td>head -2 file1</td>
+<td>查看⽂件前两⾏</td>
+</tr>
+<tr>
+<td>tail -2 file1</td>
+<td>查看⽂件后两⾏</td>
+</tr>
+<tr>
+<td>tail -f /log/msg</td>
+<td>实时查看添加到⽂件中的内容</td>
+</tr>
+<tr>
+<td>grep codesheep hello.txt</td>
+<td>在⽂件hello.txt中查找关键词codesheep</td>
+</tr>
+<tr>
+<td>grep ^sheep hello.txt</td>
+<td>在⽂件hello.txt中查找以sheep开头的内容</td>
+</tr>
+<tr>
+<td>grep [0-9] hello.txt</td>
+<td>选择hello.txt⽂件中所有包含数字的⾏</td>
+</tr>
+<tr>
+<td>sed ‘s/s1/s2/g’ hello.txt</td>
+<td>将hello.txt⽂件中的s1替换成s2</td>
+</tr>
+<tr>
+<td>sed ‘/^$/d’ hello.txt</td>
+<td>从hello.txt⽂件中删除所有空⽩⾏</td>
+</tr>
+<tr>
+<td>sed ‘/ *#/d; /^$/d’ hello.txt</td>
+<td>从hello.txt⽂件中删除所有注释和空⽩⾏</td>
+</tr>
+<tr>
+<td>sed -e ‘1d’ hello.txt</td>
+<td>从⽂件hello.txt 中排除第⼀⾏</td>
+</tr>
+<tr>
+<td>sed -n ‘/s1/p’ hello.txt</td>
+<td>查看只包含关键词”s1”的⾏</td>
+</tr>
+<tr>
+<td>sed -e ‘s/ *$//‘ hello.txt</td>
+<td>删除每⼀⾏最后的空⽩字符</td>
+</tr>
+<tr>
+<td>sed -e ‘s/s1//g’ hello.txt</td>
+<td>从⽂档中只删除词汇s1并保留剩余全部</td>
+</tr>
+<tr>
+<td>sed -n ‘1,5p;5q’ hello.txt</td>
+<td>查看从第⼀⾏到第5⾏内容</td>
+</tr>
+<tr>
+<td>sed -n ‘5p;5q’ hello.txt</td>
+<td>查看第5⾏</td>
+</tr>
+<tr>
+<td>paste file1 file2</td>
+<td>合并两个⽂件或两栏的内容</td>
+</tr>
+<tr>
+<td>paste -d ‘+’ file1 file2</td>
+<td>合并两个⽂件或两栏的内容，中间⽤”+”区分</td>
+</tr>
+<tr>
+<td>sort file1 file2</td>
+<td>排序两个⽂件的内容</td>
+</tr>
+<tr>
+<td>comm -1 file1 file2</td>
+<td>⽐较两个⽂件的内容(去除’file1’所含内容)</td>
+</tr>
+<tr>
+<td>comm -2 file1 file2</td>
+<td>⽐较两个⽂件的内容(去除’file2’所含内容</td>
+</tr>
+<tr>
+<td>comm -3 file1 file2</td>
+<td>⽐较两个⽂件的内容(去除两⽂件共有部分)</td>
+</tr>
+</tbody></table>
+<h1 id="打包和解压"><a href="#打包和解压" class="headerlink" title="打包和解压"></a>打包和解压</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>zip xxx.zip file</td>
+<td>压缩⾄zip包</td>
+</tr>
+<tr>
+<td>zip -r xxx.zip file1 file2 dir1</td>
+<td>将多个⽂件+⽬录压成zip包</td>
+</tr>
+<tr>
+<td>unzip xxx.zip</td>
+<td>解压zip包</td>
+</tr>
+<tr>
+<td>tar -cvf xxx.tar file</td>
+<td>创建⾮压缩tar包</td>
+</tr>
+<tr>
+<td>tar -cvf xxx.tar file1 file2 dir1</td>
+<td>将多个⽂件+⽬录打tar包</td>
+</tr>
+<tr>
+<td>tar -tf xxx.tar</td>
+<td>查看tar包的内容</td>
+</tr>
+<tr>
+<td>tar -xvf xxx.tar</td>
+<td>解压tar包</td>
+</tr>
+<tr>
+<td>tar -xvf xxx.tar -C /dir</td>
+<td>将tar包解压⾄指定⽬录</td>
+</tr>
+<tr>
+<td>tar -cvfj xxx.tar.bz2 dir</td>
+<td>创建bz2压缩包</td>
+</tr>
+<tr>
+<td>tar -jxvf xxx.tar.bz2</td>
+<td>解压bz2压缩包</td>
+</tr>
+<tr>
+<td>tar -cvfz xxx.tar.gz dir</td>
+<td>创建gzip压缩包</td>
+</tr>
+<tr>
+<td>tar -zxvf xxx.tar.gz</td>
+<td>解压gzip压缩包</td>
+</tr>
+<tr>
+<td>bunzip2 xxx.bz2</td>
+<td>解压bz2压缩包</td>
+</tr>
+<tr>
+<td>bzip2 filename</td>
+<td>压缩⽂件</td>
+</tr>
+<tr>
+<td>gunzip xxx.gz</td>
+<td>解压gzip压缩包</td>
+</tr>
+<tr>
+<td>gzip filename</td>
+<td>压缩⽂件</td>
+</tr>
+<tr>
+<td>gzip -9 filename</td>
+<td>最⼤程度压缩</td>
+</tr>
+</tbody></table>
+<h1 id="RPM包管理命令"><a href="#RPM包管理命令" class="headerlink" title="RPM包管理命令"></a>RPM包管理命令</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>rpm -qa</td>
+<td>查看已安装的rpm包</td>
+</tr>
+<tr>
+<td>rpm -q pkg_name</td>
+<td>查询某个rpm包</td>
+</tr>
+<tr>
+<td>rpm -q –whatprovides xxx</td>
+<td>显示xxx功能是由哪个包提供的</td>
+</tr>
+<tr>
+<td>rpm -q –whatrequires xxx</td>
+<td>显示xxx功能被哪个程序包依赖的</td>
+</tr>
+<tr>
+<td>rpm -q –changelog xxx</td>
+<td>显示xxx包的更改记录</td>
+</tr>
+<tr>
+<td>rpm -qi pkg_name</td>
+<td>查看⼀个包的详细信息</td>
+</tr>
+<tr>
+<td>rpm -qd pkg_name</td>
+<td>查询⼀个包所提供的⽂档</td>
+</tr>
+<tr>
+<td>rpm -qc pkg_name</td>
+<td>查看已安装rpm包提供的配置⽂件</td>
+</tr>
+<tr>
+<td>rpm -ql pkg_name</td>
+<td>查看⼀个包安装了哪些⽂件</td>
+</tr>
+<tr>
+<td>rpm -qf filename</td>
+<td>查看某个⽂件属于哪个包</td>
+</tr>
+<tr>
+<td>rpm -qR pkg_name</td>
+<td>查询包的依赖关系</td>
+</tr>
+<tr>
+<td>rpm -ivh xxx.rpm</td>
+<td>安装rpm包</td>
+</tr>
+<tr>
+<td>rpm -ivh –test xxx.rpm</td>
+<td>测试安装rpm包</td>
+</tr>
+<tr>
+<td>rpm -ivh –nodeps xxx.rpm</td>
+<td>安装rpm包时忽略依赖关系</td>
+</tr>
+<tr>
+<td>rpm -e xxx</td>
+<td>卸载程序包</td>
+</tr>
+<tr>
+<td>rpm -Fvh pkg_name</td>
+<td>升级确定已安装的rpm包</td>
+</tr>
+<tr>
+<td>rpm -Uvh pkg_name</td>
+<td>升级rpm包(若未安装则会安装)</td>
+</tr>
+<tr>
+<td>rpm -V pkg_name</td>
+<td>RPM包详细信息校验</td>
+</tr>
+</tbody></table>
+<h1 id="YUM包管理命令"><a href="#YUM包管理命令" class="headerlink" title="YUM包管理命令"></a>YUM包管理命令</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>yum repolist enabled</td>
+<td>显示可⽤的源仓库</td>
+</tr>
+<tr>
+<td>yum search pkg_name</td>
+<td>搜索软件包</td>
+</tr>
+<tr>
+<td>yum install pkg_name</td>
+<td>下载并安装软件包</td>
+</tr>
+<tr>
+<td>yum install –downloadonly pkg_name</td>
+<td>只 下 载 不 安 装</td>
+</tr>
+<tr>
+<td>yum list</td>
+<td>显示所有程序包</td>
+</tr>
+<tr>
+<td>yum list installed</td>
+<td>查看当前系统已安装包</td>
+</tr>
+<tr>
+<td>yum list updates</td>
+<td>查看可以更新的包列表</td>
+</tr>
+<tr>
+<td>yum check-update</td>
+<td>查看可升级的软件包</td>
+</tr>
+<tr>
+<td>yum update</td>
+<td>更新所有软件包</td>
+</tr>
+<tr>
+<td>yum update pkg_name</td>
+<td>升级指定软件包</td>
+</tr>
+<tr>
+<td>yum deplist pkg_name</td>
+<td>列出软件包依赖关系</td>
+</tr>
+<tr>
+<td>yum remove pkg_name</td>
+<td>删除软件包</td>
+</tr>
+<tr>
+<td>yum clean all</td>
+<td>清除缓存</td>
+</tr>
+<tr>
+<td>yum clean packages</td>
+<td>清除缓存的软件包</td>
+</tr>
+<tr>
+<td>yum clean headers</td>
+<td>清除缓存的header</td>
+</tr>
+</tbody></table>
+<h1 id="DPKG包管理命令"><a href="#DPKG包管理命令" class="headerlink" title="DPKG包管理命令"></a>DPKG包管理命令</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>dpkg -c xxx.deb</td>
+<td>列出deb包的内容</td>
+</tr>
+<tr>
+<td>dpkg -i xxx.deb</td>
+<td>安装/更新deb包</td>
+</tr>
+<tr>
+<td>dpkg -r pkg_name</td>
+<td>移除deb包</td>
+</tr>
+<tr>
+<td>dpkg -P pkg_name</td>
+<td>移除deb包(不保留配置)</td>
+</tr>
+<tr>
+<td>dpkg -l</td>
+<td>查看系统中已安装deb包</td>
+</tr>
+<tr>
+<td>dpkg -l pkg_name</td>
+<td>显示包的⼤致信息</td>
+</tr>
+<tr>
+<td>dpkg -L pkg_name</td>
+<td>查看deb包安装的⽂件</td>
+</tr>
+<tr>
+<td>dpkg -s pkg_name</td>
+<td>查看包的详细信息</td>
+</tr>
+<tr>
+<td>dpkg –unpack xxx.deb</td>
+<td>解开deb包的内容</td>
+</tr>
+</tbody></table>
+<h1 id="APT软件⼯具"><a href="#APT软件⼯具" class="headerlink" title="APT软件⼯具"></a>APT软件⼯具</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>apt-cache search pkg_name</td>
+<td>搜索程序包</td>
+</tr>
+<tr>
+<td>apt-cache show pkg_name</td>
+<td>获取包的概览信息</td>
+</tr>
+<tr>
+<td>apt-get install pkg_name</td>
+<td>安装/升级软件包</td>
+</tr>
+<tr>
+<td>apt-get purge pkg_name</td>
+<td>卸载软件（包括配置）</td>
+</tr>
+<tr>
+<td>apt-get remove pkg_name</td>
+<td>卸载软件（不包括配置）</td>
+</tr>
+<tr>
+<td>apt-get update</td>
+<td>更新包索引信息</td>
+</tr>
+<tr>
+<td>apt-get upgrade</td>
+<td>更新已安装软件包</td>
+</tr>
+<tr>
+<td>apt-get clean</td>
+<td>清理缓存</td>
+</tr>
+</tbody></table>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">基础知识</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/19/linux/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
         
-          <a class="article-more-a" href="/2021/06/13/Ruoyi-vue/#more">more >></a>
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux命令手册" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="关机-重启-注销"><a href="#关机-重启-注销" class="headerlink" title="关机/重启/注销"></a>关机/重启/注销</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>shutdown -h now</td>
+<td>即刻关机</td>
+</tr>
+<tr>
+<td>shutdown -h 10</td>
+<td>10分钟后关机</td>
+</tr>
+<tr>
+<td>shutdown -h 11:00</td>
+<td>11：00关机</td>
+</tr>
+<tr>
+<td>shutdown -h +10</td>
+<td>预定时间关机（10分钟后）</td>
+</tr>
+<tr>
+<td>shutdown -c</td>
+<td>取消指定时间关机</td>
+</tr>
+<tr>
+<td>shutdown -r now</td>
+<td>重启</td>
+</tr>
+<tr>
+<td>shutdown -r 10</td>
+<td>10分钟之后重启</td>
+</tr>
+<tr>
+<td>shutdown -r 11:00</td>
+<td>定时重启</td>
+</tr>
+<tr>
+<td>reboot</td>
+<td>重启</td>
+</tr>
+<tr>
+<td>init 6</td>
+<td>重启</td>
+</tr>
+<tr>
+<td>init 0</td>
+<td>⽴刻关机</td>
+</tr>
+<tr>
+<td>telinit 0</td>
+<td>关机</td>
+</tr>
+<tr>
+<td>poweroff</td>
+<td>⽴刻关机</td>
+</tr>
+<tr>
+<td>halt</td>
+<td>关机</td>
+</tr>
+<tr>
+<td>sync</td>
+<td>buff数据同步到磁盘</td>
+</tr>
+<tr>
+<td>logout</td>
+<td>退出登录Shell</td>
+</tr>
+</tbody></table>
+<h1 id="系统信息和性能查看"><a href="#系统信息和性能查看" class="headerlink" title="系统信息和性能查看"></a>系统信息和性能查看</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>uname -a</td>
+<td>查看内核/OS/CPU信息</td>
+</tr>
+<tr>
+<td>uname -r</td>
+<td>查看内核版本</td>
+</tr>
+<tr>
+<td>uname -m</td>
+<td>查看处理器架构</td>
+</tr>
+<tr>
+<td>arch</td>
+<td>查看处理器架构</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td>查看计算机名</td>
+</tr>
+<tr>
+<td>who</td>
+<td>显示当前登录系统的⽤户</td>
+</tr>
+<tr>
+<td>who am i</td>
+<td>显示登录时的⽤户名</td>
+</tr>
+<tr>
+<td>whoami</td>
+<td>显示当前⽤户名</td>
+</tr>
+<tr>
+<td>cat /proc/version</td>
+<td>查看linux版本信息</td>
+</tr>
+<tr>
+<td>cat /proc/cpuinfo</td>
+<td>查看CPU信息</td>
+</tr>
+<tr>
+<td>cat /proc/interrupts</td>
+<td>查看中断</td>
+</tr>
+<tr>
+<td>cat /proc/loadavg</td>
+<td>查看系统负载</td>
+</tr>
+<tr>
+<td>uptime</td>
+<td>查看系统运⾏时间、⽤户数、负载</td>
+</tr>
+<tr>
+<td>env</td>
+<td>查看系统的环境变量</td>
+</tr>
+<tr>
+<td>lsusb -tv</td>
+<td>查看系统USB设备信息</td>
+</tr>
+<tr>
+<td>lspci -tv</td>
+<td>查看系统PCI设备信息</td>
+</tr>
+<tr>
+<td>lsmod</td>
+<td>查看已加载的系统模块</td>
+</tr>
+<tr>
+<td>grep MemTotal /proc/meminfo</td>
+<td>查看内存总量</td>
+</tr>
+<tr>
+<td>grep MemFree /proc/meminfo</td>
+<td>查看空闲内存量</td>
+</tr>
+<tr>
+<td>free -m</td>
+<td>查看内存⽤量和交换区⽤量</td>
+</tr>
+<tr>
+<td>date</td>
+<td>显示系统⽇期时间</td>
+</tr>
+<tr>
+<td>cal 2021</td>
+<td>显示2021⽇历表</td>
+</tr>
+<tr>
+<td>top</td>
+<td>动态显示cpu/内存/进程等情况</td>
+</tr>
+<tr>
+<td>vmstat 1 20</td>
+<td>每1秒采⼀次系统状态，采20次</td>
+</tr>
+<tr>
+<td>iostat</td>
+<td>查看io读写/cpu使⽤情况</td>
+</tr>
+<tr>
+<td>查看io读写/cpu使⽤情况</td>
+<td>查询cpu使⽤情况（1秒⼀次，共10次）</td>
+</tr>
+<tr>
+<td>sar -d 1 10</td>
+<td>查询磁盘性能</td>
+</tr>
+</tbody></table>
+<h1 id="磁盘和分区"><a href="#磁盘和分区" class="headerlink" title="磁盘和分区"></a>磁盘和分区</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>fdisk -l</td>
+<td>查看所有磁盘分区</td>
+</tr>
+<tr>
+<td>swapon -s</td>
+<td>查看所有交换分区</td>
+</tr>
+<tr>
+<td>df -h</td>
+<td>查看磁盘使⽤情况及挂载点</td>
+</tr>
+<tr>
+<td>df -hl</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>du -sh /dir</td>
+<td>查看指定某个⽬录的⼤⼩</td>
+</tr>
+<tr>
+<td>du -sk * | sort -rn</td>
+<td>从⾼到低依次显示⽂件和⽬录⼤⼩</td>
+</tr>
+<tr>
+<td>mount /dev/hda2 /mnt/hda2</td>
+<td>挂载hda2盘</td>
+</tr>
+<tr>
+<td>mount -t ntfs /dev/sdc1 /mnt/usbhd1</td>
+<td>指定⽂件系统类型挂载（如ntfs）</td>
+</tr>
+<tr>
+<td>mount -o loop xxx.iso /mnt/cdrom</td>
+<td>挂 载 iso ⽂ 件</td>
+</tr>
+<tr>
+<td>umount -v /dev/sda1</td>
+<td>通过设备名卸载</td>
+</tr>
+<tr>
+<td>umount -v /mnt/mymnt</td>
+<td>通过挂载点卸载</td>
+</tr>
+<tr>
+<td>fuser -km /mnt/hda1</td>
+<td>强制卸载(慎⽤)</td>
+</tr>
+</tbody></table>
+<h1 id="⽤户和⽤户组"><a href="#⽤户和⽤户组" class="headerlink" title="⽤户和⽤户组"></a>⽤户和⽤户组</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>useradd codesheep</td>
+<td>创建⽤户</td>
+</tr>
+<tr>
+<td>userdel -r codesheep</td>
+<td>删除⽤户</td>
+</tr>
+<tr>
+<td>usermod -g group_name user_name</td>
+<td>修改⽤户的组</td>
+</tr>
+<tr>
+<td>usermod -aG group_name user_name</td>
+<td>将⽤户添加到组</td>
+</tr>
+<tr>
+<td>usermod -s /bin/ksh -d /home/codepig –g dev codesheep</td>
+<td>修改⽤户codesheep的登录Shell、主⽬录以及⽤户组</td>
+</tr>
+<tr>
+<td>groups test</td>
+<td>查看test⽤户所在的组</td>
+</tr>
+<tr>
+<td>groupadd group_name</td>
+<td>创建⽤户组</td>
+</tr>
+<tr>
+<td>groupdel group_name</td>
+<td>删除⽤户组</td>
+</tr>
+<tr>
+<td>groupmod -n new_name old_name</td>
+<td>重命名⽤户组</td>
+</tr>
+<tr>
+<td>su - user_name</td>
+<td>su - user_name</td>
+</tr>
+<tr>
+<td>passwd</td>
+<td>修改⼝令</td>
+</tr>
+<tr>
+<td>passwd codesheep</td>
+<td>修改某⽤户的⼝令</td>
+</tr>
+<tr>
+<td>w</td>
+<td>查看活动⽤户</td>
+</tr>
+<tr>
+<td>id codesheep</td>
+<td>查看指定⽤户codesheep信息</td>
+</tr>
+<tr>
+<td>last</td>
+<td>查看⽤户登录⽇志</td>
+</tr>
+<tr>
+<td>crontab -l</td>
+<td>查看当前⽤户的计划任务</td>
+</tr>
+<tr>
+<td>cut -d: -f1 /etc/passwd</td>
+<td>查看系统所有⽤户</td>
+</tr>
+<tr>
+<td>cut -d: -f1 /etc/group</td>
+<td>查看系统所有组</td>
+</tr>
+</tbody></table>
+<h1 id="⽹络和进程管理"><a href="#⽹络和进程管理" class="headerlink" title="⽹络和进程管理"></a>⽹络和进程管理</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ifconfig</td>
+<td>查看⽹络接⼝属性</td>
+</tr>
+<tr>
+<td>ifconfig eth0</td>
+<td>查看某⽹卡的配置</td>
+</tr>
+<tr>
+<td>route -n</td>
+<td>查看路由表</td>
+</tr>
+<tr>
+<td>netstat -lntp</td>
+<td>查看所有监听端⼝</td>
+</tr>
+<tr>
+<td>netstat -antp</td>
+<td>查看已经建⽴的TCP连接</td>
+</tr>
+<tr>
+<td>netstat -lutp</td>
+<td>查看TCP/UDP的状态信息</td>
+</tr>
+<tr>
+<td>ifup eth0</td>
+<td>启⽤eth0⽹络设备</td>
+</tr>
+<tr>
+<td>ifdown eth0</td>
+<td>禁⽤eth0⽹络设备</td>
+</tr>
+<tr>
+<td>iptables -L</td>
+<td>查看iptables规则</td>
+</tr>
+<tr>
+<td>ifconfig eth0 192.168.1.1 netmask 255.255.255.0</td>
+<td>配置ip地址</td>
+</tr>
+<tr>
+<td>dhclient eth0</td>
+<td>以dhcp模式启⽤eth0</td>
+</tr>
+<tr>
+<td>route add -net 0/0 gw Gateway_IP</td>
+<td>配置默认⽹关</td>
+</tr>
+<tr>
+<td>route add -net 192.168.0.0 netmask 255.255.0.0 gw 192.168.1.1</td>
+<td>配置静态路由到达⽹络’192.168.0.0/16’</td>
+</tr>
+<tr>
+<td>route del 0/0 gw Gateway_IP</td>
+<td>删除静态路由</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td>查看主机名</td>
+</tr>
+<tr>
+<td>host <a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a></td>
+<td>解析主机名</td>
+</tr>
+<tr>
+<td>nslookup <a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a></td>
+<td>查询DNS记录，查看域名解析是否正常</td>
+</tr>
+<tr>
+<td>ps -ef</td>
+<td>查看所有进程</td>
+</tr>
+<tr>
+<td>ps -ef | grep codesheep</td>
+<td>过滤出你需要的进程</td>
+</tr>
+<tr>
+<td>kill -s name</td>
+<td>kill指定名称的进程</td>
+</tr>
+<tr>
+<td>kill -s pid</td>
+<td>kill指定pid的进程</td>
+</tr>
+<tr>
+<td>top</td>
+<td>实时显示进程状态</td>
+</tr>
+<tr>
+<td>vmstat 1 20</td>
+<td>每1秒采⼀次系统状态，采20次</td>
+</tr>
+<tr>
+<td>iostat</td>
+<td>iostat</td>
+</tr>
+<tr>
+<td>sar -u 1 10</td>
+<td>查询cpu使⽤情况（1秒⼀次，共10次）</td>
+</tr>
+<tr>
+<td>sar -d 1 10</td>
+<td>查询磁盘性能</td>
+</tr>
+</tbody></table>
+<h1 id="常⻅系统服务命令"><a href="#常⻅系统服务命令" class="headerlink" title="常⻅系统服务命令"></a>常⻅系统服务命令</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>chkconfig –list</td>
+<td>列出系统服务</td>
+</tr>
+<tr>
+<td>service &lt;服务名&gt; status</td>
+<td>查看某个服务</td>
+</tr>
+<tr>
+<td>service &lt;服务名&gt; start</td>
+<td>启动某个服务</td>
+</tr>
+<tr>
+<td>service &lt;服务名&gt; stop</td>
+<td>终⽌某个服务</td>
+</tr>
+<tr>
+<td>service &lt;服务名&gt; restart</td>
+<td>重启某个服务</td>
+</tr>
+<tr>
+<td>systemctl status &lt;服务名&gt;</td>
+<td>查看某个服务</td>
+</tr>
+<tr>
+<td>systemctl start &lt;服务名&gt;</td>
+<td>启动某个服务</td>
+</tr>
+<tr>
+<td>systemctl stop &lt;服务名&gt;</td>
+<td>终⽌某个服务</td>
+</tr>
+<tr>
+<td>systemctl restart &lt;服务名&gt;</td>
+<td>重启某个服务</td>
+</tr>
+<tr>
+<td>systemctl enable &lt;服务名&gt;</td>
+<td>关闭⾃启动</td>
+</tr>
+<tr>
+<td>systemctl disable &lt;服务名&gt;</td>
+<td>关闭⾃启动</td>
+</tr>
+</tbody></table>
+<h1 id="⽂件和⽬录操作"><a href="#⽂件和⽬录操作" class="headerlink" title="⽂件和⽬录操作"></a>⽂件和⽬录操作</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cd &lt;⽬录名&gt;</td>
+<td>进⼊某个⽬录</td>
+</tr>
+<tr>
+<td>cd ..</td>
+<td>回上级⽬录</td>
+</tr>
+<tr>
+<td>cd ../..</td>
+<td>回上两级⽬录</td>
+</tr>
+<tr>
+<td>cd</td>
+<td>进个⼈主⽬录</td>
+</tr>
+<tr>
+<td>cd -</td>
+<td>回上⼀步所在⽬录</td>
+</tr>
+<tr>
+<td>pwd</td>
+<td>显示当前路径</td>
+</tr>
+<tr>
+<td>ls</td>
+<td>查看⽂件⽬录列表</td>
+</tr>
+<tr>
+<td>ls -F</td>
+<td>查看⽬录中内容（显示是⽂件还是⽬录）</td>
+</tr>
+<tr>
+<td>ls -l</td>
+<td>查看⽂件和⽬录的详情列表</td>
+</tr>
+<tr>
+<td>ls -a</td>
+<td>查看隐藏⽂件</td>
+</tr>
+<tr>
+<td>ls -lh</td>
+<td>查看⽂件和⽬录的详情列表（增强⽂件⼤⼩易读性）</td>
+</tr>
+<tr>
+<td>ls -lSr</td>
+<td>查看⽂件和⽬录列表（以⽂件⼤⼩升序查看）</td>
+</tr>
+<tr>
+<td>tree</td>
+<td>查看⽂件和⽬录的树形结构</td>
+</tr>
+<tr>
+<td>mkdir &lt;⽬录名&gt;</td>
+<td>创建⽬录</td>
+</tr>
+<tr>
+<td>mkdir dir1 dir2</td>
+<td>同时创建两个⽬录</td>
+</tr>
+<tr>
+<td>mkdir -p /tmp/dir1/dir2</td>
+<td>创建⽬录树</td>
+</tr>
+<tr>
+<td>rm -f file1</td>
+<td>删除’file1’⽂件</td>
+</tr>
+<tr>
+<td>rmdir dir1</td>
+<td>删除’dir1’⽬录</td>
+</tr>
+<tr>
+<td>rm -rf dir1</td>
+<td>删除’dir1’⽬录和其内容</td>
+</tr>
+<tr>
+<td>rm -rf dir1 dir2</td>
+<td>同时删除两个⽬录及其内容</td>
+</tr>
+<tr>
+<td>mv old_dir new_dir</td>
+<td>重命名/移动⽬录</td>
+</tr>
+<tr>
+<td>cp file1 file2</td>
+<td>复制⽂件</td>
+</tr>
+<tr>
+<td>cp dir/* .</td>
+<td>复制某⽬录下的所有⽂件⾄当前⽬录</td>
+</tr>
+<tr>
+<td>cp -a dir1 dir2</td>
+<td>复制⽬录</td>
+</tr>
+<tr>
+<td>cp -a /tmp/dir1 .</td>
+<td>复制⼀个⽬录⾄当前⽬录</td>
+</tr>
+<tr>
+<td>ln -s file1 link1</td>
+<td>创建指向⽂件/⽬录的软链接</td>
+</tr>
+<tr>
+<td>ln file1 lnk1</td>
+<td>创建指向⽂件/⽬录的物理链接</td>
+</tr>
+<tr>
+<td>find / -name file1</td>
+<td>从跟⽬录开始搜索⽂件/⽬录</td>
+</tr>
+<tr>
+<td>find / -user user1</td>
+<td>搜索⽤户user1的⽂件/⽬录</td>
+</tr>
+<tr>
+<td>find /dir -name *.bin</td>
+<td>在⽬录/dir中搜带有.bin后缀的⽂件</td>
+</tr>
+<tr>
+<td>locate &lt;关键词&gt;</td>
+<td>快速定位⽂件</td>
+</tr>
+<tr>
+<td>locate *.mp4</td>
+<td>寻找.mp4结尾的⽂件</td>
+</tr>
+<tr>
+<td>whereis &lt;关键词&gt;</td>
+<td>显示某⼆进制⽂件/可执⾏⽂件的路径</td>
+</tr>
+<tr>
+<td>which &lt;关键词&gt;</td>
+<td>查找系统⽬录下某的⼆进制⽂件</td>
+</tr>
+<tr>
+<td>chmod ugo+rwx dir1</td>
+<td>设置⽬录所有者(u)、群组(g)及其他⼈(o)的读（r）写(w)执⾏(x)权限</td>
+</tr>
+<tr>
+<td>chmod go-rwx dir1</td>
+<td>移除群组(g)与其他⼈(o)对⽬录的读写执⾏权限</td>
+</tr>
+<tr>
+<td>chown user1 file1</td>
+<td>改变⽂件的所有者属性</td>
+</tr>
+<tr>
+<td>chown -R user1 dir1</td>
+<td>改变⽬录的所有者属性</td>
+</tr>
+<tr>
+<td>chgrp group1 file1</td>
+<td>改变⽂件群组</td>
+</tr>
+<tr>
+<td>chown user1:group1 file1</td>
+<td>改变⽂件的所有⼈和群组</td>
+</tr>
+</tbody></table>
+<h1 id="⽂件查看和处理"><a href="#⽂件查看和处理" class="headerlink" title="⽂件查看和处理"></a>⽂件查看和处理</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cat file1</td>
+<td>查看⽂件内容</td>
+</tr>
+<tr>
+<td>cat -n file1</td>
+<td>查看内容并标示⾏数</td>
+</tr>
+<tr>
+<td>tac file1</td>
+<td>从最后⼀⾏开始反看⽂件内容</td>
+</tr>
+<tr>
+<td>more file1</td>
+<td>more file1</td>
+</tr>
+<tr>
+<td>less file1</td>
+<td>类似more命令，但允许反向操作</td>
+</tr>
+<tr>
+<td>head -2 file1</td>
+<td>查看⽂件前两⾏</td>
+</tr>
+<tr>
+<td>tail -2 file1</td>
+<td>查看⽂件后两⾏</td>
+</tr>
+<tr>
+<td>tail -f /log/msg</td>
+<td>实时查看添加到⽂件中的内容</td>
+</tr>
+<tr>
+<td>grep codesheep hello.txt</td>
+<td>在⽂件hello.txt中查找关键词codesheep</td>
+</tr>
+<tr>
+<td>grep ^sheep hello.txt</td>
+<td>在⽂件hello.txt中查找以sheep开头的内容</td>
+</tr>
+<tr>
+<td>grep [0-9] hello.txt</td>
+<td>选择hello.txt⽂件中所有包含数字的⾏</td>
+</tr>
+<tr>
+<td>sed ‘s/s1/s2/g’ hello.txt</td>
+<td>将hello.txt⽂件中的s1替换成s2</td>
+</tr>
+<tr>
+<td>sed ‘/^$/d’ hello.txt</td>
+<td>从hello.txt⽂件中删除所有空⽩⾏</td>
+</tr>
+<tr>
+<td>sed ‘/ *#/d; /^$/d’ hello.txt</td>
+<td>从hello.txt⽂件中删除所有注释和空⽩⾏</td>
+</tr>
+<tr>
+<td>sed -e ‘1d’ hello.txt</td>
+<td>从⽂件hello.txt 中排除第⼀⾏</td>
+</tr>
+<tr>
+<td>sed -n ‘/s1/p’ hello.txt</td>
+<td>查看只包含关键词”s1”的⾏</td>
+</tr>
+<tr>
+<td>sed -e ‘s/ *$//‘ hello.txt</td>
+<td>删除每⼀⾏最后的空⽩字符</td>
+</tr>
+<tr>
+<td>sed -e ‘s/s1//g’ hello.txt</td>
+<td>从⽂档中只删除词汇s1并保留剩余全部</td>
+</tr>
+<tr>
+<td>sed -n ‘1,5p;5q’ hello.txt</td>
+<td>查看从第⼀⾏到第5⾏内容</td>
+</tr>
+<tr>
+<td>sed -n ‘5p;5q’ hello.txt</td>
+<td>查看第5⾏</td>
+</tr>
+<tr>
+<td>paste file1 file2</td>
+<td>合并两个⽂件或两栏的内容</td>
+</tr>
+<tr>
+<td>paste -d ‘+’ file1 file2</td>
+<td>合并两个⽂件或两栏的内容，中间⽤”+”区分</td>
+</tr>
+<tr>
+<td>sort file1 file2</td>
+<td>排序两个⽂件的内容</td>
+</tr>
+<tr>
+<td>comm -1 file1 file2</td>
+<td>⽐较两个⽂件的内容(去除’file1’所含内容)</td>
+</tr>
+<tr>
+<td>comm -2 file1 file2</td>
+<td>⽐较两个⽂件的内容(去除’file2’所含内容</td>
+</tr>
+<tr>
+<td>comm -3 file1 file2</td>
+<td>⽐较两个⽂件的内容(去除两⽂件共有部分)</td>
+</tr>
+</tbody></table>
+<h1 id="打包和解压"><a href="#打包和解压" class="headerlink" title="打包和解压"></a>打包和解压</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>zip xxx.zip file</td>
+<td>压缩⾄zip包</td>
+</tr>
+<tr>
+<td>zip -r xxx.zip file1 file2 dir1</td>
+<td>将多个⽂件+⽬录压成zip包</td>
+</tr>
+<tr>
+<td>unzip xxx.zip</td>
+<td>解压zip包</td>
+</tr>
+<tr>
+<td>tar -cvf xxx.tar file</td>
+<td>创建⾮压缩tar包</td>
+</tr>
+<tr>
+<td>tar -cvf xxx.tar file1 file2 dir1</td>
+<td>将多个⽂件+⽬录打tar包</td>
+</tr>
+<tr>
+<td>tar -tf xxx.tar</td>
+<td>查看tar包的内容</td>
+</tr>
+<tr>
+<td>tar -xvf xxx.tar</td>
+<td>解压tar包</td>
+</tr>
+<tr>
+<td>tar -xvf xxx.tar -C /dir</td>
+<td>将tar包解压⾄指定⽬录</td>
+</tr>
+<tr>
+<td>tar -cvfj xxx.tar.bz2 dir</td>
+<td>创建bz2压缩包</td>
+</tr>
+<tr>
+<td>tar -jxvf xxx.tar.bz2</td>
+<td>解压bz2压缩包</td>
+</tr>
+<tr>
+<td>tar -cvfz xxx.tar.gz dir</td>
+<td>创建gzip压缩包</td>
+</tr>
+<tr>
+<td>tar -zxvf xxx.tar.gz</td>
+<td>解压gzip压缩包</td>
+</tr>
+<tr>
+<td>bunzip2 xxx.bz2</td>
+<td>解压bz2压缩包</td>
+</tr>
+<tr>
+<td>bzip2 filename</td>
+<td>压缩⽂件</td>
+</tr>
+<tr>
+<td>gunzip xxx.gz</td>
+<td>解压gzip压缩包</td>
+</tr>
+<tr>
+<td>gzip filename</td>
+<td>压缩⽂件</td>
+</tr>
+<tr>
+<td>gzip -9 filename</td>
+<td>最⼤程度压缩</td>
+</tr>
+</tbody></table>
+<h1 id="RPM包管理命令"><a href="#RPM包管理命令" class="headerlink" title="RPM包管理命令"></a>RPM包管理命令</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>rpm -qa</td>
+<td>查看已安装的rpm包</td>
+</tr>
+<tr>
+<td>rpm -q pkg_name</td>
+<td>查询某个rpm包</td>
+</tr>
+<tr>
+<td>rpm -q –whatprovides xxx</td>
+<td>显示xxx功能是由哪个包提供的</td>
+</tr>
+<tr>
+<td>rpm -q –whatrequires xxx</td>
+<td>显示xxx功能被哪个程序包依赖的</td>
+</tr>
+<tr>
+<td>rpm -q –changelog xxx</td>
+<td>显示xxx包的更改记录</td>
+</tr>
+<tr>
+<td>rpm -qi pkg_name</td>
+<td>查看⼀个包的详细信息</td>
+</tr>
+<tr>
+<td>rpm -qd pkg_name</td>
+<td>查询⼀个包所提供的⽂档</td>
+</tr>
+<tr>
+<td>rpm -qc pkg_name</td>
+<td>查看已安装rpm包提供的配置⽂件</td>
+</tr>
+<tr>
+<td>rpm -ql pkg_name</td>
+<td>查看⼀个包安装了哪些⽂件</td>
+</tr>
+<tr>
+<td>rpm -qf filename</td>
+<td>查看某个⽂件属于哪个包</td>
+</tr>
+<tr>
+<td>rpm -qR pkg_name</td>
+<td>查询包的依赖关系</td>
+</tr>
+<tr>
+<td>rpm -ivh xxx.rpm</td>
+<td>安装rpm包</td>
+</tr>
+<tr>
+<td>rpm -ivh –test xxx.rpm</td>
+<td>测试安装rpm包</td>
+</tr>
+<tr>
+<td>rpm -ivh –nodeps xxx.rpm</td>
+<td>安装rpm包时忽略依赖关系</td>
+</tr>
+<tr>
+<td>rpm -e xxx</td>
+<td>卸载程序包</td>
+</tr>
+<tr>
+<td>rpm -Fvh pkg_name</td>
+<td>升级确定已安装的rpm包</td>
+</tr>
+<tr>
+<td>rpm -Uvh pkg_name</td>
+<td>升级rpm包(若未安装则会安装)</td>
+</tr>
+<tr>
+<td>rpm -V pkg_name</td>
+<td>RPM包详细信息校验</td>
+</tr>
+</tbody></table>
+<h1 id="YUM包管理命令"><a href="#YUM包管理命令" class="headerlink" title="YUM包管理命令"></a>YUM包管理命令</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>yum repolist enabled</td>
+<td>显示可⽤的源仓库</td>
+</tr>
+<tr>
+<td>yum search pkg_name</td>
+<td>搜索软件包</td>
+</tr>
+<tr>
+<td>yum install pkg_name</td>
+<td>下载并安装软件包</td>
+</tr>
+<tr>
+<td>yum install –downloadonly pkg_name</td>
+<td>只 下 载 不 安 装</td>
+</tr>
+<tr>
+<td>yum list</td>
+<td>显示所有程序包</td>
+</tr>
+<tr>
+<td>yum list installed</td>
+<td>查看当前系统已安装包</td>
+</tr>
+<tr>
+<td>yum list updates</td>
+<td>查看可以更新的包列表</td>
+</tr>
+<tr>
+<td>yum check-update</td>
+<td>查看可升级的软件包</td>
+</tr>
+<tr>
+<td>yum update</td>
+<td>更新所有软件包</td>
+</tr>
+<tr>
+<td>yum update pkg_name</td>
+<td>升级指定软件包</td>
+</tr>
+<tr>
+<td>yum deplist pkg_name</td>
+<td>列出软件包依赖关系</td>
+</tr>
+<tr>
+<td>yum remove pkg_name</td>
+<td>删除软件包</td>
+</tr>
+<tr>
+<td>yum clean all</td>
+<td>清除缓存</td>
+</tr>
+<tr>
+<td>yum clean packages</td>
+<td>清除缓存的软件包</td>
+</tr>
+<tr>
+<td>yum clean headers</td>
+<td>清除缓存的header</td>
+</tr>
+</tbody></table>
+<h1 id="DPKG包管理命令"><a href="#DPKG包管理命令" class="headerlink" title="DPKG包管理命令"></a>DPKG包管理命令</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>dpkg -c xxx.deb</td>
+<td>列出deb包的内容</td>
+</tr>
+<tr>
+<td>dpkg -i xxx.deb</td>
+<td>安装/更新deb包</td>
+</tr>
+<tr>
+<td>dpkg -r pkg_name</td>
+<td>移除deb包</td>
+</tr>
+<tr>
+<td>dpkg -P pkg_name</td>
+<td>移除deb包(不保留配置)</td>
+</tr>
+<tr>
+<td>dpkg -l</td>
+<td>查看系统中已安装deb包</td>
+</tr>
+<tr>
+<td>dpkg -l pkg_name</td>
+<td>显示包的⼤致信息</td>
+</tr>
+<tr>
+<td>dpkg -L pkg_name</td>
+<td>查看deb包安装的⽂件</td>
+</tr>
+<tr>
+<td>dpkg -s pkg_name</td>
+<td>查看包的详细信息</td>
+</tr>
+<tr>
+<td>dpkg –unpack xxx.deb</td>
+<td>解开deb包的内容</td>
+</tr>
+</tbody></table>
+<h1 id="APT软件⼯具"><a href="#APT软件⼯具" class="headerlink" title="APT软件⼯具"></a>APT软件⼯具</h1><table>
+<thead>
+<tr>
+<th>常用命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>apt-cache search pkg_name</td>
+<td>搜索程序包</td>
+</tr>
+<tr>
+<td>apt-cache show pkg_name</td>
+<td>获取包的概览信息</td>
+</tr>
+<tr>
+<td>apt-get install pkg_name</td>
+<td>安装/升级软件包</td>
+</tr>
+<tr>
+<td>apt-get purge pkg_name</td>
+<td>卸载软件（包括配置）</td>
+</tr>
+<tr>
+<td>apt-get remove pkg_name</td>
+<td>卸载软件（不包括配置）</td>
+</tr>
+<tr>
+<td>apt-get update</td>
+<td>更新包索引信息</td>
+</tr>
+<tr>
+<td>apt-get upgrade</td>
+<td>更新已安装软件包</td>
+</tr>
+<tr>
+<td>apt-get clean</td>
+<td>清理缓存</td>
+</tr>
+</tbody></table>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/16/Linux%E5%91%BD%E4%BB%A4%E6%89%8B%E5%86%8C/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-闪聚支付" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/06/30/%E9%97%AA%E8%81%9A%E6%94%AF%E4%BB%98/">闪聚支付</a>
+    </h1>
+  
+
+        
+        <a href="/2021/06/30/%E9%97%AA%E8%81%9A%E6%94%AF%E4%BB%98/" class="archive-article-date">
+  	<time datetime="2021-06-30T03:58:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="闪聚支付"><a href="#闪聚支付" class="headerlink" title="闪聚支付"></a>闪聚支付</h1><p>闪聚支付是一个提供聚合支付的平台，聚合支付目前主要的做法就是线上聚合收银台(开放API)，线下C2B一码多<br>付、线下B2C商家扫码。平台应以SaaS服务形式提供给各商户订单管理、门店管理、财务数据统计等基础服务，闪<br>聚支付还以支付为入口，通过广告、营销、金融等服务，构建一个移动支付的全生态系统。</p>
+        
+          <a class="article-more-a" href="/2021/06/30/%E9%97%AA%E8%81%9A%E6%94%AF%E4%BB%98/#more">more >></a>
         
       
 
@@ -357,7 +3809,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/06/13/Ruoyi-vue/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/06/30/%E9%97%AA%E8%81%9A%E6%94%AF%E4%BB%98/">展开全文 >></a>
         </p>
       
 
@@ -387,29 +3839,29 @@
 
 
   
-    <article id="post-若依-RuoYi" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-java-Annotation" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/06/11/%E8%8B%A5%E4%BE%9D-RuoYi/">若依 / RuoYi</a>
+      <a class="article-title" href="/2021/06/24/java-Annotation/">java Annotation</a>
     </h1>
   
 
         
-        <a href="/2021/06/11/%E8%8B%A5%E4%BE%9D-RuoYi/" class="archive-article-date">
-  	<time datetime="2021-06-11T07:56:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-11</time>
+        <a href="/2021/06/24/java-Annotation/" class="archive-article-date">
+  	<time datetime="2021-06-24T10:27:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Ruoyi-cloud"><a href="#Ruoyi-cloud" class="headerlink" title="Ruoyi-cloud"></a>Ruoyi-cloud</h1><h1 id="基于SpringBoot的权限管理系统（操作笔记）"><a href="#基于SpringBoot的权限管理系统（操作笔记）" class="headerlink" title="基于SpringBoot的权限管理系统（操作笔记）"></a>基于SpringBoot的权限管理系统（操作笔记）</h1>
+        <h2 id="Java-注解（Annotation）"><a href="#Java-注解（Annotation）" class="headerlink" title="Java 注解（Annotation）"></a>Java 注解（Annotation）</h2><p><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/java-annotation.html">https://www.runoob.com/w3cnote/java-annotation.html</a></p>
         
-          <a class="article-more-a" href="/2021/06/11/%E8%8B%A5%E4%BE%9D-RuoYi/#more">more >></a>
+          <a class="article-more-a" href="/2021/06/24/java-Annotation/#more">more >></a>
         
       
 
@@ -423,7 +3875,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">项目笔记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">基础知识</a>
         		</li>
       		
 		</ul>
@@ -433,7 +3885,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/06/11/%E8%8B%A5%E4%BE%9D-RuoYi/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/06/24/java-Annotation/">展开全文 >></a>
         </p>
       
 
@@ -463,29 +3915,29 @@
 
 
   
-    <article id="post-typora上传图片到PicGo隐藏错误" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-springboot" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/06/11/typora%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E5%88%B0PicGo%E9%9A%90%E8%97%8F%E9%94%99%E8%AF%AF/">typora上传图片到PicGo隐藏错误</a>
+      <a class="article-title" href="/2021/06/23/springboot/">springboot</a>
     </h1>
   
 
         
-        <a href="/2021/06/11/typora%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E5%88%B0PicGo%E9%9A%90%E8%97%8F%E9%94%99%E8%AF%AF/" class="archive-article-date">
-  	<time datetime="2021-06-11T07:18:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-11</time>
+        <a href="/2021/06/23/springboot/" class="archive-article-date">
+  	<time datetime="2021-06-23T11:12:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="全网搜索都没找到解决方法"><a href="#全网搜索都没找到解决方法" class="headerlink" title="全网搜索都没找到解决方法"></a>全网搜索都没找到解决方法</h2>
+        <h1 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h1>
         
-          <a class="article-more-a" href="/2021/06/11/typora%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E5%88%B0PicGo%E9%9A%90%E8%97%8F%E9%94%99%E8%AF%AF/#more">more >></a>
+          <a class="article-more-a" href="/2021/06/23/springboot/#more">more >></a>
         
       
 
@@ -499,7 +3951,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">基础知识</a>
         		</li>
       		
 		</ul>
@@ -509,7 +3961,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/06/11/typora%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E5%88%B0PicGo%E9%9A%90%E8%97%8F%E9%94%99%E8%AF%AF/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/06/23/springboot/">展开全文 >></a>
         </p>
       
 
@@ -539,29 +3991,29 @@
 
 
   
-    <article id="post-背包问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-DFS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/06/10/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/">背包问题</a>
+      <a class="article-title" href="/2021/06/22/DFS/">DFS</a>
     </h1>
   
 
         
-        <a href="/2021/06/10/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2021-06-10T13:38:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-10</time>
+        <a href="/2021/06/22/DFS/" class="archive-article-date">
+  	<time datetime="2021-06-22T05:41:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="零钱兑换（完全背包）"><a href="#零钱兑换（完全背包）" class="headerlink" title="零钱兑换（完全背包）"></a>零钱兑换（完全背包）</h1>
+        <h1 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h1>
         
-          <a class="article-more-a" href="/2021/06/10/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/#more">more >></a>
+          <a class="article-more-a" href="/2021/06/22/DFS/#more">more >></a>
         
       
 
@@ -585,7 +4037,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/06/10/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/06/22/DFS/">展开全文 >></a>
         </p>
       
 
@@ -615,29 +4067,29 @@
 
 
   
-    <article id="post-hexo常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-回溯" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/06/10/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">hexo常用命令</a>
+      <a class="article-title" href="/2021/06/21/%E5%9B%9E%E6%BA%AF/">回溯</a>
     </h1>
   
 
         
-        <a href="/2021/06/10/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2021-06-10T11:37:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-10</time>
+        <a href="/2021/06/21/%E5%9B%9E%E6%BA%AF/" class="archive-article-date">
+  	<time datetime="2021-06-21T03:37:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
+        <h1 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h1>
         
-          <a class="article-more-a" href="/2021/06/10/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/#more">more >></a>
+          <a class="article-more-a" href="/2021/06/21/%E5%9B%9E%E6%BA%AF/#more">more >></a>
         
       
 
@@ -651,7 +4103,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">刷题笔记</a>
         		</li>
       		
 		</ul>
@@ -661,7 +4113,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/06/10/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/06/21/%E5%9B%9E%E6%BA%AF/">展开全文 >></a>
         </p>
       
 
@@ -691,30 +4143,53 @@
 
 
   
-    <article id="post-git文件提交后出现红色感叹号" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-分治" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/06/10/git%E6%96%87%E4%BB%B6%E6%8F%90%E4%BA%A4%E5%90%8E%E5%87%BA%E7%8E%B0%E7%BA%A2%E8%89%B2%E6%84%9F%E5%8F%B9%E5%8F%B7/">git文件提交后出现红色感叹号</a>
+      <a class="article-title" href="/2021/06/19/%E5%88%86%E6%B2%BB/">分治</a>
     </h1>
   
 
         
-        <a href="/2021/06/10/git%E6%96%87%E4%BB%B6%E6%8F%90%E4%BA%A4%E5%90%8E%E5%87%BA%E7%8E%B0%E7%BA%A2%E8%89%B2%E6%84%9F%E5%8F%B9%E5%8F%B7/" class="archive-article-date">
-  	<time datetime="2021-06-10T09:44:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-10</time>
+        <a href="/2021/06/19/%E5%88%86%E6%B2%BB/" class="archive-article-date">
+  	<time datetime="2021-06-19T11:02:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1>
-        
-          <a class="article-more-a" href="/2021/06/10/git%E6%96%87%E4%BB%B6%E6%8F%90%E4%BA%A4%E5%90%8E%E5%87%BA%E7%8E%B0%E7%BA%A2%E8%89%B2%E6%84%9F%E5%8F%B9%E5%8F%B7/#more">more >></a>
-        
+        <h1 id="分治（快排）"><a href="#分治（快排）" class="headerlink" title="分治（快排）"></a>分治（快排）</h1><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210619190400.png" alt="image-20210619190400322" style="zoom: 80%;" />
+
+<h2 id="例1：归并排序"><a href="#例1：归并排序" class="headerlink" title="例1：归并排序"></a>例1：归并排序</h2><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210619190726.png" alt="image-20210619190726329" style="zoom:80%;" />
+
+<h2 id="练习：169-513-215"><a href="#练习：169-513-215" class="headerlink" title="练习：169,513,215"></a>练习：169,513,215</h2><h3 id="169-多数元素"><a href="#169-多数元素" class="headerlink" title="169.多数元素"></a>169.多数元素</h3><p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210619213805.png" alt="image-20210619213805104"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int majorityElement(int[] nums) &#123;</span><br><span class="line">           return countMajority(nums,0,nums.length-1);</span><br><span class="line">    &#125;</span><br><span class="line">    public int countMajority(int[]nums,int left,int right)&#123;</span><br><span class="line">           if(left==right)</span><br><span class="line">           return nums[left];</span><br><span class="line">           int mid=left+right&gt;&gt;1;</span><br><span class="line">           int leftmagority=countMajority(nums,left,mid);</span><br><span class="line">           int rightmajority=countMajority(nums,mid+1,right);</span><br><span class="line">           if(leftmagority==rightmajority)</span><br><span class="line">           return leftmagority;</span><br><span class="line">           int leftcount=0;</span><br><span class="line">           int rightcount=0;</span><br><span class="line">           for(int i=left;i&lt;=right;i++)&#123;</span><br><span class="line">               if(nums[i]==leftmagority)</span><br><span class="line">               leftcount++;</span><br><span class="line">               else if(nums[i]==rightmajority)</span><br><span class="line">               rightcount++;</span><br><span class="line">           &#125;</span><br><span class="line">           return leftcount&gt;rightcount?leftmagority:rightmajority;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="513-找树左下角的值"><a href="#513-找树左下角的值" class="headerlink" title="513.找树左下角的值"></a>513.找树左下角的值</h3><p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210619213903.png" alt="image-20210619213903628"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for a binary tree node.</span><br><span class="line"> * public class TreeNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     TreeNode left;</span><br><span class="line"> *     TreeNode right;</span><br><span class="line"> *     TreeNode() &#123;&#125;</span><br><span class="line"> *     TreeNode(int val) &#123; this.val = val; &#125;</span><br><span class="line"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span><br><span class="line"> *         this.val = val;</span><br><span class="line"> *         this.left = left;</span><br><span class="line"> *         this.right = right;</span><br><span class="line"> *     &#125;</span><br><span class="line"> * &#125;</span><br><span class="line"> */</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public int findBottomLeftValue(TreeNode root) &#123;</span><br><span class="line">        if (root.left == null &amp;&amp; root.right == null) &#123;</span><br><span class="line">            return root.val;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();</span><br><span class="line">        queue.offer(root);</span><br><span class="line">        TreeNode temp = new TreeNode(-100);</span><br><span class="line"></span><br><span class="line">        while (!queue.isEmpty()) &#123;</span><br><span class="line">            temp = queue.poll();</span><br><span class="line"></span><br><span class="line">            if (temp.right != null) &#123;</span><br><span class="line">                // 先把右节点加入 queue</span><br><span class="line">                queue.offer(temp.right);</span><br><span class="line">            &#125;</span><br><span class="line">            if (temp.left != null) &#123;</span><br><span class="line">                // 再把左节点加入 queue</span><br><span class="line">                queue.offer(temp.left);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return temp.val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="215-TopK"><a href="#215-TopK" class="headerlink" title="215.TopK"></a>215.TopK</h3><p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210619221131.png" alt="image-20210619221131103"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210619222119.png" alt="image-20210619222119740"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210619222328.png" alt="image-20210619222328887"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210619222430.png" alt="image-20210619222430243"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210619224347.png" alt="image-20210619224347797"></p>
+<blockquote>
+<p>partition（切分）操作，使得：</p>
+<p>对于某个索引 j，nums[j] 已经排定，即 nums[j] 经过 partition（切分）操作以后会放置在它 “最终应该放置的地方”；<br>nums[left] 到 nums[j - 1] 中的所有元素都不大于 nums[j]；<br>nums[j + 1] 到 nums[right] 中的所有元素都不小于 nums[j]。</p>
+</blockquote>
+<img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210619224755.png" alt="image-20210619224754965" style="zoom:80%;" />
+
+<blockquote>
+<p>partition（切分）操作总能排定一个元素，还能够知道这个元素它最终所在的位置，这样每经过一次 partition（切分）操作就能缩小搜索的范围，这样的思想叫做 “减而治之”（是 “分而治之” 思想的特例）。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    // Leetcode 215. Kth Largest Element in an Array</span><br><span class="line">    // Quick Sort</span><br><span class="line">    // N is the size of nums</span><br><span class="line">    // Time Complexity: O(N)</span><br><span class="line">    // Space Complexity: O(logN)</span><br><span class="line">    public int findKthLargest(int[] nums, int k) &#123;</span><br><span class="line">           return quicksort(nums,0,nums.length-1,k);</span><br><span class="line">    &#125;</span><br><span class="line">    public int quicksort(int[] nums,int left,int right,int k)&#123;</span><br><span class="line">           int index=randomParition(nums,left,right);</span><br><span class="line">           if(index==k-1)&#123;</span><br><span class="line">              return nums[index];</span><br><span class="line">           &#125;else&#123;</span><br><span class="line">              return index&lt;k-1?quicksort(nums,index+1,right,k):quicksort(nums,left,index-1,k);</span><br><span class="line">           &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public int randomParition(int[] nums,int left,int right)&#123;</span><br><span class="line">           int randomIndex=(int)(Math.random()*(right-left)+left);//增加了随机数的操作</span><br><span class="line">           swap(nums,randomIndex,right);</span><br><span class="line">           return parition(nums,left,right);</span><br><span class="line">    &#125;</span><br><span class="line">    public int parition(int[] nums,int left,int right)&#123;</span><br><span class="line">           int rightMost=right;</span><br><span class="line">           int pivot=nums[right];</span><br><span class="line">           while(left&lt;=right)&#123;</span><br><span class="line">                while(left&lt;=right&amp;&amp;nums[left]&gt;pivot)&#123;</span><br><span class="line">                    left++;</span><br><span class="line">                &#125;</span><br><span class="line">                while(left&lt;=right&amp;&amp;nums[right]&lt;=pivot)&#123;//小于等于，因为最右的pivot不用动</span><br><span class="line">                    right--;</span><br><span class="line">                &#125;</span><br><span class="line">                if(left&lt;=right)&#123;</span><br><span class="line">                    swap(nums,left,right);</span><br><span class="line">                &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           swap(nums,left,rightMost);</span><br><span class="line">           return left;</span><br><span class="line">    &#125;</span><br><span class="line">    public void swap(int[] nums,int a,int b)&#123;</span><br><span class="line">           int temp=nums[a];</span><br><span class="line">           nums[a]=nums[b];</span><br><span class="line">           nums[b]=temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
       
 
       
@@ -727,7 +4202,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">刷题笔记</a>
         		</li>
       		
 		</ul>
@@ -737,7 +4212,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/06/10/git%E6%96%87%E4%BB%B6%E6%8F%90%E4%BA%A4%E5%90%8E%E5%87%BA%E7%8E%B0%E7%BA%A2%E8%89%B2%E6%84%9F%E5%8F%B9%E5%8F%B7/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/06/19/%E5%88%86%E6%B2%BB/">展开全文 >></a>
         </p>
       
 
@@ -767,158 +4242,10 @@
 
 
   
-    <article id="post-茜茜的第一篇博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/06/10/%E8%8C%9C%E8%8C%9C%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">茜茜的第一篇博客</a>
-    </h1>
-  
-
-        
-        <a href="/2021/06/10/%E8%8C%9C%E8%8C%9C%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2021-06-10T09:08:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="hello"><a href="#hello" class="headerlink" title="hello"></a>hello</h1>
-        
-          <a class="article-more-a" href="/2021/06/10/%E8%8C%9C%E8%8C%9C%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">我的markdown笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/06/10/%E8%8C%9C%E8%8C%9C%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/06/10/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2021/06/10/hello-world/" class="archive-article-date">
-  	<time datetime="2021-06-10T08:51:26.937Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-        
-          <a class="article-more-a" href="/2021/06/10/hello-world/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/06/10/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    </nav>
   
 
 
@@ -1029,6 +4356,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">基础知识</a>
               </li>
             
             <div class="clearfix"></div>
