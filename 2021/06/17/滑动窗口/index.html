@@ -15,16 +15,16 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="滑动窗口">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:/Users/LENOVO/AppData/Roaming/Typora/typora-user-images/image-20210617130714770.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210721155940.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210617130839.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210617153053.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210617162210.png">
 <meta property="article:published_time" content="2021-06-17T05:05:35.000Z">
-<meta property="article:modified_time" content="2021-06-17T08:30:46.957Z">
+<meta property="article:modified_time" content="2021-07-21T07:59:43.920Z">
 <meta property="article:author" content="QL-codesheep">
 <meta property="article:tag" content="刷题笔记">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:/Users/LENOVO/AppData/Roaming/Typora/typora-user-images/image-20210617130714770.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210721155940.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -190,7 +190,7 @@
         <h1 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h1><span id="more"></span> 
 
 <p><strong>O(1)&lt;O(logN)&lt;O(N)&lt;O(NlogN)&lt;O(N*N)&lt;O(2的N次方)&lt;O(n!)</strong></p>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><img src="C:/Users/LENOVO/AppData/Roaming/Typora/typora-user-images/image-20210617130714770.png" alt="image-20210617130714770" style="zoom:67%;" />
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210721155940.png" alt="image-20210617130714770" style="zoom:67%;" />
 
 <h2 id="练习：209，1456"><a href="#练习：209，1456" class="headerlink" title="练习：209，1456"></a>练习：209，1456</h2><h3 id="209-长度最小的子数组"><a href="#209-长度最小的子数组" class="headerlink" title="209.长度最小的子数组"></a>209.长度最小的子数组</h3><p><img src="https://cdn.jsdelivr.net/gh/QL-codesheep/MyPostImage@main//blogImg/20210617130839.png" alt="image-20210617130839065"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int minSubArrayLen(int target, int[] nums) &#123;</span><br><span class="line">           int left=0,right=0;</span><br><span class="line">           int sum=0;</span><br><span class="line">           int res=nums.length+1;//res可能的最大值</span><br><span class="line">           while(right&lt;nums.length)&#123;</span><br><span class="line">                sum+=nums[right];</span><br><span class="line">                right++;</span><br><span class="line">                while(sum&gt;=target)&#123;</span><br><span class="line">                     res=Math.min(res,right-left);</span><br><span class="line">                     sum-=nums[left];</span><br><span class="line">                     left++;</span><br><span class="line">                &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           return res==nums.length+1?0:res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
